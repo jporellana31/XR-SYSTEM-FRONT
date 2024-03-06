@@ -1,0 +1,128 @@
+<div class="fondo">
+
+  <div class="row justify-content-center">
+
+    <!-- Modal-Edit rol  -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel"><b>Select Rol</b></h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cleanButonRols()"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row justify-content-center">
+              <div class="col-6">
+                <button type="button" class="btn btn-primary btn-sm me-1" [style]="btn_rol_admin" (click)="selectRolAdmin()">Admin</button>
+                <button type="button" class="btn btn-primary btn-sm me-1" [style]="btn_rol_user" (click)="selectRolUser()">User</button>
+                <button type="button" class="btn btn-primary btn-sm " [style]="btn_rol_publicator" (click)="selectRolPublicator()" >Publicator</button>
+                <div *ngIf="false">
+                  <input type="text" [value]="rolAdmin">
+                  <input type="text" [value]="rolUser">
+                  <input type="text" [value]="rolPublicator">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="concateInput(rolAdmin, rolUser, rolPublicator)">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- filtro -->
+    <div class="col-10 d-flex justify-content-center div-filtro mt-5 mb-1">
+      <label class="mx-2"> <i class="bi bi-search" style="font-size: 1.5rem; color: rgb(47, 46, 134);"></i> </label>
+      <input type="text" class="filtro" [(ngModel)]="searchText" placeholder="   SEARCH">
+    </div>
+
+    <div class="col-10 align-self-center">
+      <!-- tabla -->
+      <div class="table-responsive my-1">
+        <table class="table table-dark table-striped table-hover align-middle">
+          <thead>
+            <tr>
+              <th scope="col" style="border-top-left-radius: 5px;">#</th>
+              <!-- <th scope="col">ID</th> -->
+              <th scope="col">Email</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Apellido</th>
+              <th scope="col">Telefono</th>
+              <th scope="col">Direccion</th>
+              <th scope="col" class="text-center">Roles</th>
+              <th scope="col">Estado</th>
+              <th scope="col" class="text-center">Edit</th>
+              <th scope="col" class="text-center" style="border-top-right-radius: 5px;">Show Profile</th>
+            </tr>
+          </thead>
+          <tbody id="tabla" ref="tabla" class="table-group-divider">
+            <!-- [routerLink]="['/userPage/' + data.id]" -->
+            <tr  id="miTablaPersonalizada" *ngFor="let data of dataUsers | filter:searchText | paginate: { itemsPerPage: itemsPage, currentPage: p}; let i = index">
+              <th scope="row">{{ i+1 }}</th>
+              <!-- <td>{{item.id}}</td> -->
+              <td>{{ data.email }}</td>
+              <td>{{ data.nombre }}</td>
+              <td>{{ data.apellido }}</td>
+              <td>{{ data.telefono }}</td>
+              <td>{{ data.direccion }}</td>
+              <td>
+
+                <div *ngFor="let rol of data.roles" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="CapEmail(data.email)">
+                  <!-- {{rol.nombre}} -->
+                  <div *ngIf="rol.id == 1" class="bubble-admin"> <label>Admin</label> </div>
+                  <div *ngIf="rol.id == 2" class="bubble-user"> <label>User</label></div>
+                  <div *ngIf="rol.id == 3" class="bubble-publi"> <label>Publicator</label></div>
+                </div>
+              </td>
+              <td>
+                 <div *ngIf="data.estado == true" class="estado-true">{{ data.estado }}</div>
+                 <div *ngIf="data.estado == false" class="estado-false">{{ data.estado }}</div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-warning btn_pencil" (click)="updateUser(data)">
+                  <i class="bi bi-pencil"></i>
+                </button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-primary btn_eye" [routerLink]="['/userPage/' + data.id]">
+                  <i class="bi bi-eye"  style="font-size: 1rem; color: black;"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pie de tabla -->
+        <div class="row justify-content-evenly">
+          <div class="col">
+            <!-- paginacion -->
+            <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
+          </div>
+          <div class="col">
+            <div class="row justify-content-end">
+              <div class="col-6" style="display: flex; justify-content: flex-end;">
+              <!-- selecion de items por page -->
+                <select style="background-color: grey;" class="form-select" style="width: auto" [(ngModel)]="itemsPage">
+                  <option [value]="itemsPage" disabled selected hidden>Items</option>
+                  <option [ngValue]="10">10 items per page</option>
+                  <option [ngValue]="15">15 items per page</option>
+                  <option [ngValue]="20">20 items per page</option>
+                  <option [ngValue]='allUsers'>All</option>
+                </select>
+              </div>
+              <div class="col-4 align-self-end">
+                <div class="mt-2">
+                  <!-- Total de usuarios -->
+                    <label style="color: grey;">N° Users: {{allUsers}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

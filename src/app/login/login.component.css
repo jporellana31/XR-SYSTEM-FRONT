@@ -1,0 +1,194 @@
+*,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.fondo{
+    /* background-color: #000000; */
+    min-height: 100vh;
+    background-image: url('../../assets/imgs/PortadaX-Ray.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.308);
+    background-blend-mode: darken;
+}
+.background{
+    width: 400px;
+    height: 585px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+.background .shape{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+div a{
+   color: #23a2f6;
+}
+img{
+    height: 135px;
+    width: 135px;
+    border-radius: 100%;
+    animation-name: example2;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+/* @keyframes example2 {
+  0%   {height: 135px; width: 150px; box-shadow: 0px 0px 15px 5px #252423; }
+  25%  {height: 130px; width: 145px; box-shadow: 0px 0px 15px 10px #252423; }
+  50%  {height: 125px; width: 140px; box-shadow: 0px 0px 15px 5px #3a3a3b; }
+  75%  {height: 130px; width: 145px; box-shadow: 0px 0px 15px 10px #252423; }
+  100% {height: 135px; width: 150px; box-shadow: 0px 0px 15px 5px #252423; }
+}*/
+form{
+    height: 585px;
+    width: 420px;
+    background-color: rgba(255,255,255,0.13);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 15px 5px #4b4a49;
+    padding: 15px 35px;
+}
+form *{
+    color: #f8f5f5;
+    letter-spacing: 0.5px;
+    outline: none;
+    /* border: none; */
+}
+form h1{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+    cursor: default;
+}
+
+label{
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+input{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+}
+::placeholder{
+    color: #e5e5e5;
+}
+
+.input-group-text {
+  background-color: rgba(255,255,255,0.07);
+}
+
+.input-group>.form-control:focus{
+  background-color: rgba(255,255,255,0.07);
+}
+
+input:hover, input:focus{
+    /* border: 1px solid #ccc; */
+    border-top: 1px solid #ccc;
+    border-inline: 1px solid #ccc;
+    border-bottom: 3px solid;
+    border-bottom-color: #23a2f6;
+    box-shadow: 0px 0px 15px 5px #4b4a49;
+}
+
+.button-log{
+    cursor: pointer;
+    margin-top: 25px;
+    width: 100%;
+    background-color: cornflowerblue;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    border: 1px solid rgb(91, 68, 219);
+    box-shadow: 0px 0px 15px 2px #4d639e;
+}
+
+.button-log:hover{
+    background: linear-gradient(
+        to right,
+        #4191aa,
+        #6ac0c0,
+        #4191aa
+    );
+    border: 1px solid #81c3d3;
+    box-shadow: 0px 0px 15px 7px #70a8ce;
+}
+
+/* .btn-eye{
+    background-color: transparent;
+    border: none;
+} */
+
+.icon-label{
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+/*
+.icon--eye{
+    font-size: 1.3rem;
+    position: absolute;
+    width: 25px;
+    margin-left: 73%;
+} */
+
+p{
+    color: rgba(0,0,0,.4);
+    font-weight: 400;
+    text-align: center;
+    position: relative;
+    margin-bottom: 0px !important;
+}
+    p::before, p::after {
+        content: " ";
+        position: absolute;
+        border-top: 2px solid rgba(0,0,0,.3);
+        top: 8px;
+        height: 5px;
+        width: 45%;
+      }
+      p::before {
+        left: 0px;
+      }
+      p::after {
+        right: 0px;
+      }
+
+
+/* >>>>> Red social */
+.social{
+  margin-top: 30px;
+  display: flex;
+}
+.social div{
+  width: 150px;
+  border-radius: 3px;
+  padding: 5px 10px 10px 5px;
+  background-color: rgba(255,255,255,0.27);
+  color: #eaf0fb;
+  text-align: center;
+}
+.social div:hover{
+  background-color: rgba(255,255,255,0.47);
+  cursor: pointer;
+}
+.social .fb{
+  margin-left: 25px;
+}
+.social i{
+  margin-right: 4px;
+}
+/* <<<<< Red Soial */

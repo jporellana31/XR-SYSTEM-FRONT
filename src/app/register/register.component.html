@@ -1,0 +1,263 @@
+<div class="fondo">
+  <div class="con">
+    <div class="row">
+
+      <!-- Card perspective -->
+      <div class="col-md-6 align-self-center contenedor-logo mt-5">
+        <div class="d-flex justify-content-center card-logo-3d">
+          <div class="row justify-content-center card-logo">
+            <div class="col-md-12 col align-self-center row justify-content-center card-logo-img">
+              <img
+                src="../../assets/icons/lungs.png"
+                alt="Logo Pulmones"
+              />
+            </div>
+            <div class="col-md-12 text-center card-logo-txt">
+              <h1>Register Now</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Register -->
+      <div
+        class="col-md-5 align-self-center d-flex justify-content-center my-5"
+      >
+        <form class="was-validated">
+          <div class="row align-self-center d-flex justify-content-center">
+
+            <h3 class="text-center">Form Register</h3>
+
+            <!-- Progress Bar -->
+            <div class="position-relative m-4" style="width: 70%;">
+              <div class="progress" style="height: 2px;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-label="Progress" [style]="progressBar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <button type="button" [class]="btnProgress1" style="width: 2rem; height:2rem;" (click)="progress1()">
+                <div *ngIf="section == 1">
+                  1
+                </div>
+                <div *ngIf="section == 2 || section == 3">
+                  <i class="bi bi-check"></i>
+                </div>
+              </button>
+              <button type="button" [class]="btnProgress2" style="width: 2rem; height:2rem;" (click)="progress2()">
+                <div *ngIf="section == 1 || section == 2">
+                  2
+                </div>
+                <div *ngIf="section == 3">
+                  <i class="bi bi-check"></i>
+                </div>
+                <div *ngIf="section == 1">
+                  <span class="position-absolute top-100 start-100 end-0 translate-middle badge rounded-pill bg-secondary Click-Here">Click Here</span>
+                </div>
+              </button>
+              <button type="button" [class]="btnProgress3" style="width: 2rem; height:2rem;" (click)="progress3()">3
+                <div  *ngIf="section == 2">
+                  <span class="position-absolute top-100 start-100 end-0 translate-middle badge rounded-pill bg-secondary Click-Here">Click Here</span>
+                </div>
+              </button>
+            </div>
+
+            <!-- Progress 1 -->
+            <div *ngIf="section == 1" class="col-md-12 px-1">
+              <!-- Input Nombre -->
+              <div class="row">
+                <div class="col-1 align-self-end icon-label">
+                  <i class="bi bi-person" style="color: cornflowerblue;"></i>
+                </div>
+                <div class="col-5">
+                  <label for="nombre" class="form-label">Nombre</label>
+                </div>
+                <input
+                [(ngModel)]="usuario.nombre"
+                name="id-nombre"
+                maxlength="60"
+                  type="text"
+                  class="form-control is-invalid"
+                  id="nombre"
+                  placeholder="   Nombre"
+                  required
+                />
+              </div>
+
+              <!-- Input Apellido -->
+              <div class="row">
+                <div class="col-1 align-self-end icon-label">
+                  <i class="bi bi-person" style="color: cornflowerblue;"></i>
+                </div>
+                <div class="col-5">
+                  <label for="apellido" class="form-label">Apellido</label>
+                </div>
+                  <input
+                  [(ngModel)]="usuario.apellido"
+                  name="id-apellido"
+                  maxlength="60"
+                    type="text"
+                    class="form-control is-invalid"
+                    id="apellido"
+                    placeholder="   Apellido"
+                    required
+                  />
+              </div>
+
+              <!-- GEOLOCALIZACION -->
+              <div *ngIf="false">
+                <div class="row">
+                  <div class="col-1 align-self-end icon-label">
+                    <!-- <i class="bi bi-person" style="color: cornflowerblue;"></i> -->
+                  </div>
+                  <div class="col-5 me-2">
+                    <label for="latitud" class="form-label">Latitud</label>
+                    <input style="color: black;"
+                    [(ngModel)]="usuario.latitud"
+                    name="id-latitud"
+                      type="text"
+                      class="form-control is-invalid"
+                      id="latitud"
+                      placeholder="latitud"
+                      required
+                    />
+                  </div>
+                  <div class="col-5 me-2">
+                    <label for="longitude" class="form-label">Latitud</label>
+                    <input style="color: black;"
+                    [(ngModel)]="usuario.longitud"
+                    name="id-longitud"
+                      type="text"
+                      class="form-control is-invalid"
+                      id="longitude"
+                      placeholder="longitude"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Progress 2 -->
+            <div *ngIf="section == 2" class="col-md-12 px-1">
+
+              <!-- Input Cedula -->
+              <div class="row">
+                <div class="col-1 align-self-end icon-label">
+                  <i class="bi bi-card-heading" style="color: cornflowerblue;"></i>
+                </div>
+                <div class="col-5">
+                  <label for="cedula" class="form-label">Cedula</label>
+                </div>
+                <input
+                [(ngModel)]="usuario.cedula"
+                name="id-cedula"
+                type="text"
+                maxlength="11"
+                  class="form-control is-invalid"
+                  id="cedula"
+                  placeholder="   Cedula"
+                  required
+                />
+              </div>
+
+              <!-- Input Telefono -->
+              <div class="row">
+                <div class="col-1 align-self-end icon-label">
+                  <i class="bi bi-telephone" style="color: cornflowerblue;"></i>
+                </div>
+                <div class="col-5">
+                  <label for="telefono" class="form-label">Telefono</label>
+                </div>
+                <input
+                [(ngModel)]="usuario.telefono"
+                name="id-telefono"
+                type="tel"
+                maxlength="20"
+                pattern="[0-9]+"
+                  class="form-control is-invalid"
+                  id="telefono"
+                  placeholder="   Telefono"
+                  required
+                />
+              </div>
+
+              <!-- Input Direccion -->
+              <div class="row">
+                <div class="col-1 align-self-end icon-label">
+                  <i class="bi bi-signpost" style="color: cornflowerblue;"></i>
+                </div>
+                <div class="col-5">
+                  <label for="direccion" class="form-label">Dirección</label>
+                </div>
+                <input
+                [(ngModel)]="usuario.direccion"
+                name="id-direccion"
+                maxlength="60"
+                  type="text"
+                  class="form-control is-invalid"
+                  id="direccion"
+                  placeholder="   Dirección"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Progress 3 -->
+            <div *ngIf="section == 3" class="col-md-12 px-1">
+
+              <!-- Input Email -->
+              <div class="row">
+                <div class="col-1 align-self-end icon-label">
+                  <i class="bi bi-envelope" style="color: cornflowerblue;"></i>
+                </div>
+                <div class="col-5">
+                  <label for="email">Email</label>
+                </div>
+                <input
+                [(ngModel)]="usuario.email"
+                name="id-email"
+                maxlength="254"
+                  type="email"
+                  class="form-control is-invalid"
+                  id="email"
+                  placeholder="   Email"
+                  required
+                />
+              </div>
+
+              <!-- Input Password -->
+              <div class="row">
+                <div class="col-1 align-self-end icon-label">
+                  <i class="bi bi-key" style="color: cornflowerblue;"></i>
+                </div>
+                <div class="col-5">
+                  <label for="password">Password</label>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-text" id="password" (click)="showPassword()" style="width: 2.5rem;">
+                      <i [class]="eyePassword" class="ms-2" [style]="eyeColor"></i>
+                    </span>
+                    <input [type]="typePassword" maxlength="60"  style="color:black;" class="form-control is-invalid" placeholder="   Password" aria-label="Username" aria-describedby="password" [(ngModel)]="usuario.password" name="idPassword" required>
+                  </div>
+
+                <!-- <input
+                [(ngModel)]="usuario.password"
+                [ngModelOptions]="{standalone: true}"
+                maxlength="60"
+                  type="password"
+                  class="form-control is-invalid"
+                  id="password"
+                  placeholder="Password"
+                  required
+                /> -->
+              </div>
+            </div>
+
+            <button *ngIf="section == 3" class="button-register" (click)="guardarUser()" >Create Acount</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

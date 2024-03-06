@@ -1,0 +1,112 @@
+.row{
+  margin: 0;
+}
+.fondo{
+  background: #0a0a0a;
+  min-height: 100vh;
+}
+table{
+  border-radius: 30px;
+  /* table-layout: fixed; */
+}
+
+#miTablaPersonalizada th{
+  height: 97px;
+  overflow: auto;
+}
+
+
+
+
+.table-hover > tbody > tr:hover > * {
+  --bs-table-accent-bg: rgb(47, 46, 134);
+}
+
+.table-responsive{
+  scrollbar-width: thin;
+  scrollbar-color: #353434 rgb(19, 19, 19);
+}
+.table-responsive:hover{
+  scrollbar-color: #686868 rgb(19, 19, 19);
+}
+
+
+.div-filtro{
+}
+.filtro{
+  margin-left: 10px;
+  background: #313030;
+  border: 1px solid rgb(47, 46, 134);
+  color: rgb(255, 255, 255);
+  border-radius: 20px;
+}
+
+.form-select{
+  color: #f7f9fb;
+  background-color: #0f0e0e;
+  border: 1px solid rgb(47, 46, 134);
+}
+
+.my-pagination{
+  color: wheat;
+}
+
+.my-pagination ::ng-deep .ngx-pagination a:hover,
+.ngx-pagination button:hover {
+ background:rgb(47, 46, 134);
+ border-radius: 10px;
+}
+.my-pagination ::ng-deep .my-pagination[_ngcontent] .ngx-pagination a:hover, .ngx-pagination[_ngcontent] button[_ngcontent]:hover {
+  border-radius: 3px;
+}
+
+.my-pagination ::ng-deep .ngx-pagination .current {
+  background: rgb(48, 46, 177);
+  border-radius: 50%;
+}
+/* rojo rgb(226, 55, 55) */
+.estado-false{
+  background-color: rgb(226, 55, 55);
+  text-align: center;
+  border-radius: 30px;
+  width: 45px;
+  height: 20px;
+}
+.estado-true{
+  background-color: rgb(55, 226, 106);
+  text-align: center;
+  border-radius: 30px;
+  width: 45px;
+  height: 20px;
+}
+
+.bubble-admin{
+  background: rgb(146, 0, 146);
+  text-align: center;
+  border: 0.5px solid rgb(195, 112, 216);
+  border-radius: 30px;
+  height: 23px;
+  margin-bottom: 5px;
+}
+.bubble-user{
+  background: rgba(255, 166, 0, 0.89);
+  text-align: center;
+  border: 0.5px solid rgb(180, 182, 83);
+  border-radius: 30px;
+  height: 23px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.bubble-publi{
+  background: rgb(0, 65, 187);
+  text-align: center;
+  border: 0.5px solid rgb(82, 120, 201);
+  border-radius: 30px;
+  height: 23px;
+  margin-top: 5px;
+}
+
+.btn_eye, .btn_pencil{
+  display: flex;
+  margin: auto;
+}

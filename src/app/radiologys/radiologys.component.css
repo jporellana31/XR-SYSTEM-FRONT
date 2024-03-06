@@ -1,0 +1,344 @@
+.fondo {
+  background-color: rgb(0, 0, 0);
+  min-height: 100vh;
+}
+
+/* subir imagen */
+.btn-block {
+  width: 100%;
+}
+.card {
+  --bs-card-cap-bg: rgb(100 149 237);
+}
+.card-body img {
+  width: 150px;
+  height: 150px;
+  display: block;
+  opacity: 0.5;
+  margin: 0px auto;
+}
+.txt-up {
+  opacity: 0.7;
+  color: black;
+}
+.sombra {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-inline: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 15px 10px #4b4a49;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* tarjetas de enfermedades */
+.cards-left {
+  height: 720px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #686868 rgb(19, 19, 19);
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.card-container {
+  border: 1px solid rgb(35, 52, 83);
+  box-shadow: 0px 0px 15px 0.2px rgb(47, 46, 134);
+  border-radius: 5px;
+}
+.img-card-radiology {
+  height: 150px;
+  width: 100%;
+  cursor: pointer;
+}
+.card {
+  background-color: rgb(0, 0, 0);
+}
+.txt-card {
+  color: white;
+}
+.txt-card h2 {
+  margin-bottom: 0px;
+}
+.txt-card p {
+  color: rgb(59, 86, 134);
+  font-size: 11px;
+  line-height: 0.3;
+}
+
+/* camvas de radiografia */
+.image-canvas-wrapper {
+  width: 100%;
+  height: 660px;
+  margin: 35px auto;
+  background: black;
+}
+.cornerstone-element {
+  width: 100%;
+  height: 100%;
+}
+.txt-diseases {
+  color: white;
+  font-weight: bolder;
+}
+.sombra-photo-radiology {
+  /* margin-top: 20px;
+  margin-bottom: 20px;
+  margin-inline: 10px; */
+  border: 1px solid rgb(204, 204, 204);
+  box-shadow: 0px 0px 15px 4px #4b4a49;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+
+/* estadistcias */
+.grafica {
+  width: 100%;
+  height: calc(100% - 0px);
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+.sombra-card-data {
+  /* margin-top: 20px;
+  margin-bottom: 20px;
+  margin-inline: 10px; */
+  border: 1px solid rgb(47, 46, 134);
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px 1px rgb(47, 46, 134);
+}
+
+
+
+/* Drop Down Menu */
+.dropdown-menu {
+  max-height: 350px;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #686868 rgb(19, 19, 19);
+}
+.dropwon-switch-btn{
+  margin-top: 3px;
+  border-radius: 100%;
+}
+.btn-group-switch .dropdown-toggle::after {
+  display: none;
+  margin-left: none;
+  vertical-align: none;
+  content: none;
+  border-top: none;
+  border-right:none;
+  border-bottom: none;
+  border-left:none;
+}
+.dropwon-switch-btn:focus{
+  border-color: cornflowerblue;
+}
+.icon-dropwon-switch{
+  font-size: 1rem;
+   color: cornflowerblue;
+}
+.btn-xray {
+  border-radius: 100%;
+}
+.selectpicker{
+  background: rgb(202, 11, 11);
+  color: rgb(233, 229, 18);
+  }
+.accordion {
+  /* letras-item */
+  --bs-accordion-color: rgb(219, 219, 219);
+  /* DENTRO */
+  --bs-accordion-bg: #495057;
+  /* Afuera */
+  --bs-accordion-btn-bg: #343a40;
+  /* letras */
+  --bs-accordion-btn-color: #f5f6f7;
+  /* desactivar */
+  --bs-accordion-btn-focus-box-shadow: none;
+  /* activo letra*/
+  --bs-accordion-active-color: cornflowerblue;
+  /* activo casilla*/
+  --bs-accordion-active-bg: #212529;
+  /* bordes */
+  --bs-accordion-border-color: #495057;
+}
+.change-puntero{
+  cursor: pointer;
+}
+.accordion-item {
+  color: rgb(24, 24, 24);
+}
+
+
+
+
+
+
+
+
+/* selecionador de fuente */
+/* font-family: 'Aboreto', cursive;
+font-family: 'Audiowide', cursive;
+font-family: 'Bangers', cursive;
+font-family: 'Bungee Shade', cursive;
+font-family: 'Londrina Outline', cursive;
+font-family: 'Megrim', cursive;
+font-family: 'Metamorphous', cursive;
+font-family: 'Noto Serif HK', serif;
+font-family: 'Play', sans-serif;
+font-family: 'Poiret One', cursive;
+font-family: 'Redacted Script', cursive;
+font-family: 'Slackey', cursive;
+font-family: 'Solitreo', cursive;
+font-family: 'UnifrakturMaguntia', cursive;
+font-family: 'Zilla Slab Highlight', cursive; */
+
+/* Dropdaowns */
+#dropdown {
+  border: 1px solid #00b456;
+  border-radius: 7px;
+  color: black;
+  cursor: pointer;
+  height: 70px;
+  outline: none;
+  padding: 0 0 0 50px;
+  width: 100%;
+  overflow: hidden;
+}
+
+#dropdown option {
+
+  background-color: white;
+  color: black;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* #dropdown option:nth-child(2) Default { */
+#dropdown option:nth-child(2) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Aboreto';
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(3) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Audiowide';
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(4) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Bangers';
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(5) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Bungee Shade';
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(6) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Londrina Outline';
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(7) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Megrim';
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(8) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Metamorphous';
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(9) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Noto Serif HK', serif;
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(10) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Play', sans-serif;
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(11) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Poiret One';
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(12) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Redacted Script';
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(13) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Slackey';
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(14) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Solitreo';
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(15) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'UnifrakturMaguntia';
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(16) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Zilla Slab Highlight';
+  font-size: 30px;
+}

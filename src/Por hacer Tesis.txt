@@ -1,0 +1,30 @@
+
+minitutorial Aumentar (Como eliminar herramientas)
+
+-- preguntar si esta seguro de cambiar de vista cuando este en /radiology
+-- poner un odrby en el array donde estan los dicon para probar ordenar el stack
+
+-- Stack en dicon controlar (Controla la opacidad el filtro-- http://45.116.32.158:5555/layeredImageStacks/index.html)
+options: {
+      opacity: 0.7,
+      visible: true,
+    }
+
+Herramientas nuevas
+(
+  -Save Image Example (descarga la imagen--probar si se descarga png o dicom)
+
+)
+
+
+
+////////-------- CODIGO PARA VER TODO DATA DEL CANVAS-------------/////////////////////
+const enabledElements = cornerstone.getEnabledElements();
+
+    const element2 = enabledElements.find((ee) => {
+      console.log("datos del canvas: ", ee);
+      ee.image.imageId === 'dicomfile:0'
+      console.log("Numero de Archivo actual: ", ee.image.imageId);
+
+    })
+////////^^^^^^^ CODIGO PARA VER TODO DATA DEL CANVAS ^^^^^^^ /////////////////////

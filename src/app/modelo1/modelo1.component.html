@@ -1,0 +1,44 @@
+<div class="fondo">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 mx-auto mt-5" *ngIf="hiddenSpinner != true">
+        <!-- Card -->
+        <div class="card sombra">
+          <!-- Header Card -->
+            <div class="card-header text-center" style="padding: 1rem;">
+              <i class="bi bi-cloud-arrow-up-fill" style="font-size: 5rem; color: white;"> <h4>Upload a Photo</h4></i>
+            </div>
+          <!-- Body Card -->
+            <div class="card-body">
+                  <!-- File -->
+                  <input type="file" accept="image/*" class="d-none" (change)="onPhotoSelected($event)" #photoInput>
+                  <!-- Img -->
+                  <div class="img-upload">
+                    <img [src]="photoSelected || '../../assets/imgs/no-image2.png'" class="img-fluid" alt="No image" (click)="photoInput.click()">
+                    <h6 *ngIf="hiddenTxt != false" class="text-center txt-up">Clik en la imagen para subir una foto</h6>
+                  </div>
+                  <!-- Buttton -->
+                  <button class="btn btn-success btn-block mt-3" [disabled]="displayButton" (click)="loading()">
+                      Siguiente
+                  </button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section: Spinner progress -->
+  <div class="container" *ngIf="hiddenSpinner != false">
+    <div class="row">
+      <div class="col-md-4 offset-md-4">
+        <!-- Spinner progress -->
+        <div class="d-flex justify-content-center" style="margin-top: 50%;">
+          <div class="spinner-border text-info" role="status" style="width: 5rem; height: 5rem;">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

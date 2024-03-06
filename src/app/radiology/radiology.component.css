@@ -1,0 +1,415 @@
+.fondo {
+  background-color: rgb(0, 0, 0);
+  min-height: 100vh;
+}
+
+/* subir imagen */
+.btn-block {
+  width: 100%;
+}
+
+.card {
+  --bs-card-cap-bg: rgb(100 149 237);
+}
+
+.card-body img {
+  width: 150px;
+  height: 150px;
+  display: block;
+  opacity: 0.5;
+  margin: 0px auto;
+}
+
+.txt-up {
+  opacity: 0.7;
+  color: black;
+}
+
+.sombra {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-inline: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 15px 10px #4b4a49;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* tarjetas de enfermedades */
+.cards-left {
+  height: 860px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #686868 rgb(19, 19, 19);
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  border-top: 1px solid rgb(35, 52, 83);
+  border-bottom: 1px solid rgb(35, 52, 83);
+  border-radius: 5px;
+  box-shadow: 0px 0px 30px 0.2px rgb(66, 64, 212);
+}
+
+.card-container {
+  border: 1px solid rgb(35, 52, 83);
+  box-shadow: 0px 3px 15px 2px rgb(47, 46, 134);
+  border-radius: 5px;
+}
+
+.img-card-radiology {
+  height: 150px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.card {
+  background-color: rgb(0, 0, 0);
+}
+
+.txt-card {
+  color: white;
+}
+
+.txt-card h2 {
+  margin-bottom: 0px;
+}
+
+.txt-card p {
+  color: rgb(59, 86, 134);
+  font-size: 11px;
+  line-height: 0.3;
+}
+
+/* camvas de radiografia */
+.image-canvas-wrapper {
+  width: 100%;
+  height: 800px;
+  margin: 35px auto;
+  background: black;
+}
+
+.cornerstone-element {
+  width: 100%;
+  height: 100%;
+}
+
+.txt-diseases {
+  color: white;
+  font-weight: bolder;
+}
+
+.sombra-photo-radiology {
+  /* margin-top: 20px;
+  margin-bottom: 20px;
+  margin-inline: 10px; */
+  border: 1px solid rgb(204, 204, 204);
+  box-shadow: 0px 0px 15px 4px #4b4a49;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+
+/* estadistcias */
+.grafica {
+  width: 100%;
+  height: calc(100% - 0px);
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.sombra-card-data {
+  /* margin-top: 20px;
+  margin-bottom: 20px;
+  margin-inline: 10px; */
+  border-top: 1px solid rgb(35, 52, 83);
+  border-bottom: 1px solid rgb(35, 52, 83);
+  border-radius: 5px;
+  box-shadow: 7px 0px 30px 0.2px rgb(66, 64, 212);
+}
+
+
+
+/* Drop Down Menu */
+.dropdown-menu {
+  max-height: 350px;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #686868 rgb(19, 19, 19);
+}
+
+.dropwon-switch-btn {
+  margin-top: 3px;
+  border-radius: 100%;
+}
+
+.btn-group-switch .dropdown-toggle::after {
+  display: none;
+  margin-left: none;
+  vertical-align: none;
+  content: none;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+}
+
+.dropwon-switch-btn:focus {
+  border-color: cornflowerblue;
+  box-shadow: 0px 0px 15px 0.2px rgb(66, 64, 212);
+}
+
+.dropwon-switch-toolDelete:focus {
+  border-color: rgb(237, 100, 141);
+  box-shadow: 0px 0px 15px 0.2px rgb(212, 64, 113);
+}
+.dropwon-switch-toolDelete{
+  margin-top: 3px;
+  border-radius: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-dropwon-switch {
+  font-size: 1rem;
+  color: cornflowerblue;
+}
+.icon-dropwon-switch-deleteTool {
+  font-size: 1rem;
+  color: rgb(237, 100, 123);
+}
+
+.btn-xray {
+  border: none;
+}
+
+.btn-xray:hover {
+  border: 1px solid cornflowerblue;
+  border-radius: 100%;
+  box-shadow: 0px 0px 15px 0.2px rgb(66, 64, 212);
+}
+
+.btn-color-Xr:hover {
+  box-shadow: 0px 0px 15px 2px rgb(66, 64, 212);
+}
+
+.btn-group-tools:hover {
+  box-shadow: 0px 0px 15px 2px rgb(66, 64, 212);
+}
+
+.selectpicker {
+  background: rgb(202, 11, 11);
+  color: rgb(233, 229, 18);
+}
+
+.accordion {
+  /* letras-item */
+  --bs-accordion-color: rgb(219, 219, 219);
+  /* DENTRO */
+  --bs-accordion-bg: #495057;
+  /* Afuera */
+  --bs-accordion-btn-bg: #343a40;
+  /* letras */
+  --bs-accordion-btn-color: #f5f6f7;
+  /* desactivar */
+  --bs-accordion-btn-focus-box-shadow: none;
+  /* activo letra*/
+  --bs-accordion-active-color: cornflowerblue;
+  /* activo casilla*/
+  --bs-accordion-active-bg: #212529;
+  /* bordes */
+  --bs-accordion-border-color: #495057;
+}
+
+.change-puntero {
+  cursor: pointer;
+}
+
+.accordion-item {
+  color: rgb(24, 24, 24);
+}
+
+/* boton CTRL */
+.btn-CtrlDesactive {
+  background: rgb(0, 0, 0);
+  color: rgb(237, 100, 100);
+  padding: 5px 10px;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 100%;
+  /* border:1px solid rgb(237, 100, 100); */
+
+  animation-name: glowing;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+}
+
+
+@keyframes glowing {
+  0% {
+    border-color: rgb(114, 54, 54);
+    box-shadow: 0px 0px 10px 0.2px rgb(212, 64, 64);
+  }
+
+  50% {
+    border-color: rgb(237, 100, 100);
+    box-shadow: 0px 0px 15px 2px rgb(212, 64, 64);
+  }
+
+  100% {
+    border-color: rgb(114, 54, 54);
+    box-shadow: 0px 0px 10px 0.2px rgb(212, 64, 64);
+  }
+}
+
+.btn-CtrlDesactive:hover {
+  background-color: rgb(31, 31, 31);
+  animation-play-state: paused;
+  color: white;
+}
+
+/* Dropdaowns */
+#dropdown option {
+  background-color: white;
+  color: black;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* #dropdown option:nth-child(2) Default { */
+#dropdown option:nth-child(2) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+
+}
+
+#dropdown option:nth-child(3) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Aboreto' !important;
+  -moz-font-family: 'Aboreto' !important;
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(4) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Audiowide', cursive;
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(5) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Bangers', cursive;
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(6) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Bungee Shade', cursive;
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(7) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Londrina Outline', cursive;
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(8) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Megrim', cursive;
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(9) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Metamorphous', cursive;
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(10) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Noto Serif HK', serif;
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(11) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Play', sans-serif;
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(12) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Poiret One', cursive;
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(13) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Redacted Script', sans-serif;
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(14) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Slackey', cursive;
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(15) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Solitreo', cursive;
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(16) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'UnifrakturMaguntia', cursive;
+  font-size: 30px;
+}
+
+#dropdown option:nth-child(17) {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 100px;
+  font-family: 'Zilla Slab Highlight', cursive;
+  font-size: 30px;
+}

@@ -1,0 +1,1108 @@
+<div class="fondo">
+  <ng-container *ngIf="viewUpload == true">
+    <div class="fondo">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 mx-auto mt-5" *ngIf="hiddenSpinner != true">
+            <!-- Card -->
+            <div class="card sombra">
+              <!-- Header Card -->
+              <div class="card-header text-center" style="padding: 1rem">
+                <i
+                  class="bi bi-cloud-arrow-up-fill"
+                  style="font-size: 5rem; color: white"
+                >
+                  <h4>Upload a Photo</h4></i
+                >
+              </div>
+              <!-- Body Card -->
+              <div class="card-body" style="background-color: white">
+                <!-- File -->
+                <input
+                  type="file"
+                  class="d-none"
+                  (change)="onPhotoSelected($event)"
+                  #photoInput
+                  multiple
+                />
+                <!-- Img -->
+                <div class="img-upload">
+                  <img
+                    [src]="photoSelected || '../../assets/imgs/no-image2.png'"
+                    class="img-fluid"
+                    alt="No image"
+                    (click)="photoInput.click()"
+                  />
+                  <h6 *ngIf="hiddenTxt != false" class="text-center txt-up">
+                    Clik en la imagen para subir una foto
+                  </h6>
+                </div>
+                <!-- Buttton -->
+                <button
+                  class="btn btn-success btn-block mt-3"
+                  [disabled]="displayButton"
+                  (click)="loading()"
+                >
+                  Siguiente
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Spinner progress -->
+      <div class="container" *ngIf="hiddenSpinner != false">
+        <div class="row">
+          <div class="col-md-4 offset-md-4">
+            <!-- Spinner progress -->
+            <div class="d-flex justify-content-center" style="margin-top: 50%">
+              <div
+                class="spinner-border text-info"
+                role="status"
+                style="width: 5rem; height: 5rem"
+              >
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="viewRadiology == true">
+    <div class="container-fluid text-center">
+      <div class="row">
+        <!-- tools de Cornerstone>>>>>> -->
+        <div class="my-3">
+
+          <!-- btn-ctrl-desactive -->
+          <ng-container *ngIf="CtrlActive == true">
+            <button class="btn-CtrlDesactive" (click)="desactiveAltKey()">Crtl</button>
+          </ng-container>
+
+          <!-- btn Configuraciones OffCanvas-->
+          <button
+            class="btn btn-outline-primary btn-xray mx-1"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBothOptions"
+            aria-controls="offcanvasWithBothOptions"
+          >
+            <i class="bi bi-gear-fill"></i>
+          </button>
+
+          <!-- OffCanvas  -->
+          <div
+            class="offcanvas offcanvas-start text-bg-dark"
+            data-bs-scroll="true"
+            tabindex="-1"
+            id="offcanvasWithBothOptions"
+            aria-labelledby="offcanvasWithBothOptionsLabel"
+          >
+            <div class="offcanvas-header">
+              <h1 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
+                <i class="bi bi-gear-fill me-3"></i>Configuration
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="offcanvas-body">
+              <div class="accordion" id="accordionPanelsStayOpenExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button
+                      class="accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#panelsStayOpen-collapseOne"
+                      aria-expanded="true"
+                      aria-controls="panelsStayOpen-collapseOne"
+                    >
+                      <i class="bi bi-palette me-2"></i> Change drawing tool
+                      colors
+                    </button>
+                  </h2>
+                  <div
+                    id="panelsStayOpen-collapseOne"
+                    class="accordion-collapse collapse show"
+                    aria-labelledby="panelsStayOpen-headingOne"
+                  >
+                    <div class="accordion-body">
+                      <div class="mb-2">
+                        <h4>
+                          <em>Customize the colors of the drawing tool:</em>
+                        </h4>
+                        <label for="exampleColorInput" class="form-label"
+                          >Color Inactive:</label
+                        >
+                        <i
+                          class="bi bi-info-circle ms-4"
+                          style="font-size: 0.9rem; color: cornflowerblue"
+                          (click)="infoToolModal('Inactive')"
+                        ></i>
+                        <input
+                          type="color"
+                          class="form-control form-control-color"
+                          id="exampleColorInput"
+                          [(ngModel)]="colorToolsInactive"
+                          title="Choose your color"
+                        />
+                      </div>
+
+                      <div class="my-2">
+                        <label for="exampleColorInput2" class="form-label"
+                          >Color Active:</label
+                        >
+                        <i
+                          class="bi bi-info-circle ms-4"
+                          style="font-size: 0.9rem; color: cornflowerblue"
+                          (click)="infoToolModal('Active')"
+                        ></i>
+                        <input
+                          type="color"
+                          class="form-control form-control-color"
+                          id="exampleColorInput2"
+                          [(ngModel)]="colorToolsActive"
+                          title="Choose your color"
+                        />
+                      </div>
+
+                      <div class="mt-4">
+                        <button
+                          type="button"
+                          class="btn btn-outline-primary"
+                          (click)="changeColorTools()"
+                        >
+                          Aply changes
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#panelsStayOpen-collapseTwo"
+                      aria-expanded="false"
+                      aria-controls="panelsStayOpen-collapseTwo"
+                    >
+                      <i class="bi bi-fonts me-2"></i> Customize Font Size
+                    </button>
+                  </h2>
+                  <div
+                    id="panelsStayOpen-collapseTwo"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="panelsStayOpen-headingTwo"
+                  >
+                    <div class="accordion-body">
+                      <h4>
+                        <em
+                          >Change different settings for font style and
+                          size:</em
+                        >
+                      </h4>
+
+                      <div>
+                        <select
+                          [(ngModel)]="fuenteSelecioanda"
+                          class="form-select form-select-lg mb-3"
+                          aria-label=".form-select-lg example"
+                          id="dropdown"
+                        >
+                          <option value="" disabled selected>Styles</option>
+                          <option value="Default">Default</option>
+                          <option value="Aboreto">Aboreto</option>
+                          <option value="Audiowide">Audiowide</option>
+                          <option value="Bangers">Bangers</option>
+                          <option value="Bungee Shade">Bungee Shade</option>
+                          <option value="Londrina Outline">
+                            Londrina Outline
+                          </option>
+                          <option value="Megrim">Megrim</option>
+                          <option value="Metamorphous">Metamorphous</option>
+                          <option value="Noto Serif HK">Noto Serif HK</option>
+                          <option value="Play">Play</option>
+                          <option value="Poiret One">Poiret One</option>
+                          <option value="Redacted Script">
+                            Redacted Script
+                          </option>
+                          <option value="Slackey">Slackey</option>
+                          <option value="Solitreo">Solitreo</option>
+                          <option value="UnifrakturMaguntia">
+                            UnifrakturMaguntia
+                          </option>
+                          <option value="Zilla Slab Highlight">
+                            Zilla Slab Highlight
+                          </option>
+                        </select>
+
+                        <div class="form-floating mb-3">
+                          <input
+                            type="number"
+                            min="0"
+                            max="100"
+                            [(ngModel)]="sizeFont"
+                            ondrop="return false;"
+                            onpaste="return false;"
+                            onkeypress="return event.charCode>=48 && event.charCode<=57"
+                            class="form-control"
+                            id="fontSize"
+                          />
+                          <label for="fontSize">Font size</label>
+                        </div>
+
+                        <button
+                          type="button"
+                          class="btn btn-outline-primary mx-2"
+                          (click)="changeTextCornerstone()"
+                        >
+                          Aply changes
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#panelsStayOpen-collapseThree"
+                      aria-expanded="false"
+                      aria-controls="panelsStayOpen-collapseThree"
+                    >
+                      <i class="bi bi-distribute-vertical me-2"></i>Customize
+                      width of tool lines
+                    </button>
+                  </h2>
+                  <div
+                    id="panelsStayOpen-collapseThree"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="panelsStayOpen-headingThree"
+                  >
+                    <div class="accordion-body">
+                      <h4>
+                        <em>Change different settings for line width:</em>
+                      </h4>
+
+                      <div>
+                        <div class="form-floating mb-3">
+                          <input
+                            type="number"
+                            min="0"
+                            max="100"
+                            [(ngModel)]="lineWidhtTool"
+                            ondrop="return false;"
+                            onpaste="return false;"
+                            onkeypress="return event.charCode>=48 && event.charCode<=57"
+                            class="form-control"
+                            id="lineWidth"
+                          />
+                          <label for="lineWidth">Line width</label>
+                        </div>
+                        <button
+                          type="button"
+                          class="btn btn-outline-primary mx-2"
+                          (click)="onlyLineWidthToolCornerstone()"
+                        >
+                          Aply Width Line
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="panelsStayOpen-headingFor">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#panelsStayOpen-collapseFor"
+                      aria-expanded="false"
+                      aria-controls="panelsStayOpen-collapseFor"
+                    >
+                      <i class="bi bi-mouse2 me-2"></i> View default tool
+                      buttons
+                    </button>
+                  </h2>
+                  <div
+                    id="panelsStayOpen-collapseFor"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="panelsStayOpen-headingFor"
+                  >
+                    <div class="accordion-body">
+                      <!-- poner img de botones aki -->
+                      <div class="mb-2">
+                        <h4><em>Tool buttons:</em></h4>
+                        <label for="exampleColorInput" class="form-label"
+                          >Classic mouse:</label
+                        >
+                        <br />
+                        <i
+                          class="bi bi-mouse2-fill mx-2 change-puntero"
+                          style="font-size: 0.9rem; color: cornflowerblue"
+                          (click)="infoToolModal('MausClassic')"
+                          >Show buttons</i
+                        >
+                      </div>
+
+                      <div class="my-2">
+                        <label for="exampleColorInput2" class="form-label"
+                          >Advanced mouse:</label
+                        >
+                        <br />
+                        <i
+                          class="bi bi-mouse3-fill mx-2 change-puntero"
+                          style="font-size: 0.9rem; color: cornflowerblue"
+                          (click)="infoToolModal('MausAdvanced')"
+                          >Show buttons</i
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Btn tools -->
+          <div
+            class="btn-group btn-group-sm"
+            role="group"
+            aria-label="Basic radio toggle button group"
+          >
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio1"
+              autocomplete="off"
+              checked
+            />
+            <label
+              class="btn btn-outline-primary btn-group-tools"
+              for="btnradio1"
+              (click)="activateTools('Length')"
+              ><i class="bi bi-option"></i> Length</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio2"
+              autocomplete="off"
+            />
+            <label
+              class="btn btn-outline-primary btn-group-tools"
+              for="btnradio2"
+              (click)="activateTools('EllipticalRoi')"
+              ><i class="bi bi-circle"></i> Elliptical</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio3"
+              autocomplete="off"
+            />
+            <label
+              class="btn btn-outline-primary btn-group-tools"
+              for="btnradio3"
+              (click)="activateTools('Rotate')"
+              ><i class="bi bi-arrow-clockwise"></i> Rotate</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio4"
+              autocomplete="off"
+            />
+            <label
+              class="btn btn-outline-primary btn-group-tools"
+              for="btnradio4"
+              (click)="activateTools('Wwwc')"
+            >
+              <i class="bi bi-circle-half"></i> Sparkle</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio5"
+              autocomplete="off"
+            />
+            <label
+              class="btn btn-outline-primary btn-group-tools"
+              for="btnradio5"
+              (click)="activateTools('Eraser')"
+              ><i class="bi bi-eraser-fill"></i> Eraser</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio6"
+              autocomplete="off"
+            />
+            <label
+              class="btn btn-outline-primary btn-group-tools"
+              for="btnradio6"
+              (click)="activateTools('Angle')"
+              ><i class="bi bi-chevron-bar-left"></i> Angle</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio7"
+              autocomplete="off"
+            />
+            <label
+              class="btn btn-outline-primary btn-group-tools"
+              for="btnradio7"
+              (click)="activateTools('Bidirectional')"
+              ><i class="bi bi-arrows-expand"></i> Bidirectional</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio8"
+              autocomplete="off"
+            />
+            <label
+              class="btn btn-outline-primary btn-group-tools"
+              for="btnradio8"
+              (click)="activateTools('RectangleRoi')"
+              ><i class="bi bi-square"></i> Rectangle</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio9"
+              autocomplete="off"
+            />
+            <label
+              class="btn btn-outline-primary btn-group-tools"
+              for="btnradio9"
+              (click)="activateTools('ArrowAnnotate')"
+              ><i class="bi bi-textarea-t"></i> Arrow Annotate</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio10"
+              autocomplete="off"
+            />
+            <label
+              class="btn btn-outline-primary btn-group-tools"
+              for="btnradio10"
+              (click)="activateTools('TextMarker')"
+              ><i class="bi bi-fonts"></i> Text Marker</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio11"
+              autocomplete="off"
+            />
+            <label
+              class="btn btn-outline-primary btn-group-tools"
+              for="btnradio11"
+              (click)="activateTools('FreehandRoi')"
+              ><i class="bi bi-bezier2"></i> Free Hand</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio12"
+              autocomplete="off"
+            />
+            <label
+              class="btn btn-outline-primary btn-group-tools"
+              for="btnradio12"
+              (click)="activateTools('CobbAngle')"
+              ><i class="bi bi-chevron-bar-expand"></i> CobbAngle</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio13"
+              autocomplete="off"
+            />
+            <label
+              class="btn btn-outline-primary btn-group-tools"
+              for="btnradio13"
+              (click)="activateTools('Probe')"
+              ><i class="bi bi-record-circle"></i> Probe</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio14"
+              autocomplete="off"
+            />
+            <label
+              class="btn btn-outline-primary btn-group-tools"
+              for="btnradio14"
+              (click)="activateTools('StackScroll')"
+              ><i class="bi bi-stack"></i> Stack</label
+            >
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="btnradio15"
+              autocomplete="off"
+            />
+            <label
+              class="btn btn-outline-primary btn-group-tools"
+              for="btnradio15"
+              (click)="activateTools('WwwcRegion')"
+              ><i class="bi bi-diamond-half"></i> SparkleRegion</label
+            >
+
+          </div>
+
+          <!-- Filtros radiografia -->
+          <div
+            class="btn-group btn-color-Xr ms-3"
+            role="group"
+            aria-label="Button group with nested dropdown"
+          >
+            <div class="btn-group" role="group">
+              <button
+                type="button"
+                class="btn btn-outline-primary btn-sm dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i
+                  class="bi bi-thermometer-sun me-2"
+                  style="font-size: 1.5rem"
+                ></i
+                >Filters
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <div
+                  class="btn-group-vertical mx-3"
+                  role="group"
+                  aria-label="Vertical button group"
+                >
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor1"
+                    autocomplete="off"
+                    checked
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor1"
+                    (click)="changeColorXray('gray')"
+                    >Default</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor2"
+                    autocomplete="off"
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor2"
+                    (click)="changeColorXray('autumn')"
+                    >Autumn</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor3"
+                    autocomplete="off"
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor3"
+                    (click)="changeColorXray('blues')"
+                    >Blues</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor4"
+                    autocomplete="off"
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor4"
+                    (click)="changeColorXray('bone')"
+                    >Bone</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor5"
+                    autocomplete="off"
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor5"
+                    (click)="changeColorXray('cool')"
+                    >Cool</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor6"
+                    autocomplete="off"
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor6"
+                    (click)="changeColorXray('coolwarm')"
+                    >Cool Warm</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor7"
+                    autocomplete="off"
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor7"
+                    (click)="changeColorXray('copper')"
+                    >Copper</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor8"
+                    autocomplete="off"
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor8"
+                    (click)="changeColorXray('hot')"
+                    >Hot</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor9"
+                    autocomplete="off"
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor9"
+                    (click)="changeColorXray('hotIron')"
+                    >Hot Iron</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor10"
+                    autocomplete="off"
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor10"
+                    (click)="changeColorXray('hotMetalBlue')"
+                    >Hot Metal Blue</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor11"
+                    autocomplete="off"
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor11"
+                    (click)="changeColorXray('pet20Step')"
+                    >Pet Step</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor12"
+                    autocomplete="off"
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor12"
+                    (click)="changeColorXray('hsv')"
+                    >HSV</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor13"
+                    autocomplete="off"
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor13"
+                    (click)="changeColorXray('jet')"
+                    >Jet</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor14"
+                    autocomplete="off"
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor14"
+                    (click)="changeColorXray('pet')"
+                    >Pet</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor15"
+                    autocomplete="off"
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor15"
+                    (click)="changeColorXray('spectral')"
+                    >Spectral</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor16"
+                    autocomplete="off"
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor16"
+                    (click)="changeColorXray('spring')"
+                    >Spring</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor17"
+                    autocomplete="off"
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor17"
+                    (click)="changeColorXray('summer')"
+                    >Summer</label
+                  >
+
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="btnradio2"
+                    id="btnColor18"
+                    autocomplete="off"
+                  />
+                  <label
+                    class="btn btn-outline-primary"
+                    for="btnColor18"
+                    (click)="changeColorXray('winter')"
+                    >Winter</label
+                  >
+                </div>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- <<<<<<<tools de Cornerstone -->
+
+        <!-- tarjetas de enfermedad>>>> -->
+        <div class="col-2 col-xs-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 col-xxl-2 cards-left">
+          <div
+            class="container card my-3 card-container"
+            style="width: 18rem"
+            *ngFor="let disease of onlyDiseases"
+          >
+            <img
+              src="{{ disease.photo }}"
+              class="card-img-top img-fluid img-card-radiology mt-1"
+              [alt]="disease.name"
+              (click)="
+                expandCardRadiology(disease.photo, disease.name, disease.value)
+              "
+            />
+            <div class="card-body txt-card">
+              <h2 class="card-title">{{ disease.name }}</h2>
+              <p>Percent: {{ disease.value }}%</p>
+            </div>
+          </div>
+        </div>
+        <!-- <<<<tarjetas de enfermedad -->
+
+        <!-- Radiologya y Data -->
+        <div class="col-10 col-xs-12 col-sm-12 col-md-12 col-lg-10 col-lxg10 col-lxxg10 ">
+          <div class="row">
+            <!-- Radiology Image>>>> -->
+            <div class="col-8">
+              <div class="sombra-photo-radiology">
+                <!-- Top de radiology -->
+                <div class="row">
+                  <!-- dropdown Switchs -->
+                  <div class="col-md-1">
+                    <div
+                      class="btn-group btn-group-switch ms-3"
+                      role="group"
+                      aria-label="Button group with nested dropdown"
+                    >
+                      <button
+                        type="button"
+                        class="btn btn-online-secondary dropdown-toggle dropwon-switch-btn"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <i
+                          class="bi bi-three-dots-vertical icon-dropwon-switch"
+                        ></i>
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-dark">
+                        <li>
+                          <div class="form-check form-switch mx-2">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              role="switch"
+                              id="flexSwitchCheckDefault"
+                              [(ngModel)]="isInvierte"
+                              (click)="invertXray()"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="flexSwitchCheckDefault"
+                            >
+                              Invert</label
+                            >
+                          </div>
+                        </li>
+
+                        <li><hr class="dropdown-divider" /></li>
+
+                        <li>
+                          <div class="form-check form-switch mx-2">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              role="switch"
+                              id="flexSwitchCheckDefault"
+                              [(ngModel)]="isPixel"
+                              (click)="pixelXray()"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="flexSwitchCheckDefault"
+                            >
+                              Pixelar</label
+                            >
+                          </div>
+                        </li>
+
+                        <li><hr class="dropdown-divider" /></li>
+
+                        <li>
+                          <div class="form-check form-switch mx-2">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              role="switch"
+                              id="flexSwitchCheckDefault"
+                              [(ngModel)]="isFlipH"
+                              (click)="flipHXray()"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="flexSwitchCheckDefault"
+                              style="font-size: 14px"
+                            >
+                              Flip horizontally</label
+                            >
+                          </div>
+                        </li>
+
+                        <li><hr class="dropdown-divider" /></li>
+
+                        <li>
+                          <div class="form-check form-switch mx-2">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              role="switch"
+                              id="flexSwitchCheckDefault"
+                              [(ngModel)]="isFlipV"
+                              (click)="flipVXray()"
+                            />
+                            <label
+                              class="form-check-label"
+                              for="flexSwitchCheckDefault"
+                            >
+                              Flip vertically</label
+                            >
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- nombre de enfermedad selecionada -->
+                  <div class="col-md-10">
+                    <div>
+                      <input
+                        type="text"
+                        class="form-control-plaintext form-control-lg text-center txt-diseases"
+                        readonly
+                        [value]="showDiseases"
+                      />
+                    </div>
+                  </div>
+                  <!-- dropdown delete selectTools -->
+                  <div class="col-md-1">
+                    <div class="btn-group btn-group-switch">
+                      <button class="btn btn-sm btn-online-secondary dropdown-toggle dropwon-switch-toolDelete" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i
+                          class="bi bi bi-x icon-dropwon-switch-deleteTool"
+                        ></i>
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-dark p-2">
+                        <h4 class="text-start m-0"><b>Clean Tools</b></h4>
+                        <div *ngFor="let opcion of opciones">
+                          <input class="form-check-input" type="checkbox"  [(ngModel)]="opcion.seleccionado" id="flexCheckDefault">
+                          <label class="form-check-label ms-1" for="flexCheckDefault">
+                            {{ opcion.texto }}
+                          </label>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                          <button class="btn btn-sm btn-danger mt-4" (click)="toolSelectToDelete()"><i class="bi bi-x-lg"></i> Delete</button>
+                        </div>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section: Spinner progress -->
+                <ng-container *ngIf="hiddenSpinner != false">
+                  <!-- Spinner progress -->
+                  <div class="d-flex justify-content-center">
+                    <div
+                      class="spinner-border text-info"
+                      role="status"
+                      style="width: 5rem; height: 5rem"
+                    >
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                </ng-container>
+
+                <!-- canvas radiology -->
+                <div class="image-canvas-wrapper my-1" id="element-1">
+                  <div id="element" class="cornerstone-element"></div>
+                </div>
+              </div>
+            </div>
+            <!-- <<<<<Radiology Image -->
+
+            <!-- Data Visual>>>>> -->
+            <div class="col-4" style="max-height: 860px;">
+              <!-- Therd Model Horizontal Bar -->
+              <div #containerRef class="sombra-card-data grafica">
+                <ngx-charts-bar-horizontal
+                  (window:resize)="onResize($event)"
+                  [scheme]="colorScheme"
+                  [results]="single"
+                  [gradient]="gradient"
+                  [xAxis]="showXAxis"
+                  [yAxis]="showYAxis"
+                  [showXAxisLabel]="showXAxisLabel"
+                  [showYAxisLabel]="showYAxisLabel"
+                  [xAxisLabel]="showXAxisHorizontal"
+                  [yAxisLabel]="showYAxisVertical"
+                  [showDataLabel]="showDataLabel"
+                  [xAxisTickFormatting]="formatPercent"
+                  [tooltipDisabled]="tooltipDisabled"
+                  [trimYAxisTicks]="trimYAxisTicks"
+                  [activeEntries]="activeEntries"
+                  [animations]="true"
+                  (select)="onSelect($event)"
+                  style="fill: #ffffff; font-size: 25px"
+                >
+                </ngx-charts-bar-horizontal>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

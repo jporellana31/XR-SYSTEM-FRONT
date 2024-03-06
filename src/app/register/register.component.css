@@ -1,0 +1,178 @@
+*,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.fondo{
+    /* background-color: #000000; */
+    min-height: 100vh;
+    background-image: url('../../assets/imgs/PortadaX-Ray.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.308);
+    background-blend-mode: darken;
+}
+
+/*PErspectiva de tarjeta >>>>>>>>>*/
+.contenedor-logo{
+    /* border: 2px dashed green; */
+}
+.card-logo-3d{
+    /* border: 1px solid #ccc; */
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    max-width: 85%;
+    min-width: 85%;
+    max-height: 350px;
+    min-height: 350px;
+    transform: perspective(400px) rotateY(20deg) rotateX(5deg) translateX(8%) translateZ(150px);
+    animation-name: example;
+    animation-duration: 2s;
+    /* animation-iteration-count: infinite; */
+}
+@keyframes example {
+    0% { transform: perspective(400px) rotateY(-5deg) rotateX(-5deg) translateX(8%) translateZ(-150px); }
+}
+.Click-Here{
+    /* color: white !important; */
+    animation-name: ejemplo;
+    animation-duration: 2.5s;
+    animation-iteration-count: infinite;
+}
+@keyframes ejemplo {
+    50% { color: #4080df ; font-size: 13px; }
+    100% { color: #4080df ; font-size: 13px; }
+}
+.card-logo{
+    /* border: 1px dashed red; */
+    background-color: rgba(8, 8, 8, 0.3);
+    border-radius: 10px;
+    /* backdrop-filter: blur(3px); */
+    box-shadow: -5px 0px 15px 0px #cacaca;
+    padding: 55px 55px;
+}
+.card-logo-img{
+    /* si se borra el borde el logo desaparece para pantallas pequeñas */
+    border: 1px dashed transparent;
+}
+.card-logo-txt{
+    /* border: 1px dashed purple; */
+
+    color: white;
+}
+
+@media (max-width: 991px) {
+    .card-logo-3d{
+        margin-left: 8%;
+        transform: perspective(none);
+    }
+    form{
+        margin-left: 0px !important;
+    }
+}
+/*<<<<<<<<<< Perspectiva de tarjeta*/
+
+
+.background{
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+.background .shape{
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    border-radius: 50%;
+}
+img{
+    height: 150px;
+    width: 150px;
+    border-radius: 100%;
+}
+form{
+    height: 500px;
+    width: 500px;
+    margin-left: 3rem;
+    background-color: rgba(255,255,255,0.13);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 15px 5px #4b4a49;
+    padding: 15px 15px;
+}
+form *{
+    color: #f8f5f5;
+    letter-spacing: 0.5px;
+    outline: none;
+    /* border: none; */
+}
+form h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+    cursor: default;
+}
+
+label{
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+input{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+}
+::placeholder{
+    color: #e5e5e5;
+}
+.button-register{
+  cursor: pointer;
+    margin-top: 25px;
+    width: 100%;
+    background-color: cornflowerblue;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    border: 1px solid rgb(91, 68, 219);
+    box-shadow: 0px 0px 15px 2px #4d639e;
+}
+
+.button-register:hover{
+  background: linear-gradient(
+        to right,
+        #4191aa,
+        #6ac0c0,
+        #4191aa
+    );
+    border: 1px solid #81c3d3;
+    box-shadow: 0px 0px 15px 7px #70a8ce;
+}
+
+.icon-label{
+  margin-right: 0px;
+  font-size: 1.3rem;
+}
+
+/* Config Boostrap */
+.form-control:focus {
+    background-color: #464646;
+}
+
+.input-group>.form-control:focus{
+  background-color: rgba(255,255,255,0.07);
+}
+.input-group-text {
+  background-color: rgba(255,255,255,0.07);
+}
+

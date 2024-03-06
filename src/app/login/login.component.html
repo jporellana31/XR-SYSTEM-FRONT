@@ -1,0 +1,84 @@
+<div class="fondo">
+  <div class="row">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4 align-self-center d-flex justify-content-center my-5">
+      <form>
+        <div class="d-flex justify-content-center my-1" style="height: 150px">
+          <img
+            src="../../assets/icons/lungs.png"
+            class="card-img-top"
+            alt="Logo Pulmones"
+          />
+        </div>
+
+        <h1 class="text-center">Login</h1>
+
+        <!-- Input Username -->
+        <div class="row">
+          <div class="col-1 align-self-end icon-label">
+            <i class="bi bi-person" style="color: cornflowerblue"></i>
+          </div>
+          <div class="col-5">
+            <label for="username">Username</label>
+          </div>
+          <input
+            type="email"
+            style="color: black"
+            placeholder="   @Email"
+            id="username"
+            [(ngModel)]="usuario.email"
+            name="first"
+          />
+        </div>
+
+        <!-- Input Password -->
+        <div class="row">
+          <div class="col-1 align-self-end icon-label">
+            <i class="bi bi-key" style="color: cornflowerblue"></i>
+          </div>
+
+          <div class="col-5">
+            <label for="password">Password</label>
+          </div>
+
+          <div class="input-group">
+            <span
+              class="input-group-text"
+              id="password"
+              (click)="showPassword()"
+              style="width: 2.5rem"
+            >
+              <i [class]="eyePassword" class="ms-2" [style]="eyeColor"></i>
+            </span>
+            <input
+              [type]="typePassword"
+              style="color: black"
+              class="form-control"
+              placeholder="   Password"
+              aria-label="Username"
+              aria-describedby="password"
+              autocomplete="new-password"
+              [(ngModel)]="usuario.password"
+              name="second"
+            />
+          </div>
+        </div>
+
+        <!-- Button Login -->
+        <button class="button-log" (click)="login()">LogIn</button>
+        <p class="mt-1">OR</p>
+
+        <!-- Ipervincule Go to Register -->
+        <div class="row justify-content-between">
+          <div class="col-6">
+            <a href="/lostPassword" class="text-end">Forgot your password?</a>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="col-md-4"></div>
+  </div>
+</div>
