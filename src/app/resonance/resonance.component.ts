@@ -21,7 +21,6 @@ import * as cornerstone1 from '@cornerstonejs/core';
 import * as cornerstoneTools1 from '@cornerstonejs/tools';
 import * as cornerstoneDICOMImageLoader from '@cornerstonejs/dicom-image-loader';
 import initDemo from 'src/app/utils/initDemo';
-import createImageIdsAndCacheMetaData from 'src/app/utils/createImageIdsAndCacheMetaData';
 import setCtTransferFunctionForVolumeActor from 'src/app/utils/setCtTransferFunctionForVolumeActor';
 import addDropdownToToolbar from 'src/app/utils/addDropdownToToolbar';
 
@@ -458,7 +457,9 @@ export class ResonanceComponent implements OnInit {
 
 
  // funcion de ver por stack varios dicom
+
  async stackDicom(uploadFiles: any):Promise<any>{
+  this.hiddenSpinner = false;
   const useCPU = false;
 const useVolume = true;
 const shouldUseSharedArrayBuffer = false;
@@ -480,7 +481,7 @@ description += "Cross-origin isolated: " + self.crossOriginIsolated + "\n";
   if (useCPU) {
     cornerstone1.setUseCPURendering(true);
   }
-  this.hiddenSpinner = false;
+
   cornerstone1.init();
   cornerstoneTools1.init();
   const {
@@ -506,33 +507,21 @@ description += "Cross-origin isolated: " + self.crossOriginIsolated + "\n";
     const volumeId = `${volumeLoaderScheme}:${volumeName}`; // VolumeId with loader id + volume id
     const toolGroupId = 'MY_TOOLGROUP_ID';
 
-    const size = '500px';
-    const content = document.getElementById('content');
-    const viewportGrid = document.createElement('div');
+    const element1 = document.getElementById('element1') as HTMLDivElement;
+    const element2 = document.getElementById('element2') as HTMLDivElement;
+    const element3 = document.getElementById('element3') as HTMLDivElement;
 
-    viewportGrid.style.display = 'flex';
-    viewportGrid.style.display = 'flex';
-    viewportGrid.style.flexDirection = 'row';
-
-    const element1 = document.createElement('div');
-    const element2 = document.createElement('div');
-    const element3 = document.createElement('div');
-    element1.style.width = size;
-    element1.style.height = size;
-    element2.style.width = size;
-    element2.style.height = size;
-    element3.style.width = size;
-    element3.style.height = size;
+    element1.style.width = '600px';
+    element1.style.height = '600px';
+    element2.style.width = '300px';
+    element2.style.height = '300px';
+    element3.style.width = '300px';
+    element3.style.height = '300px';
     // Disable right click context menu so we can have right click tools
     element1.oncontextmenu = (e) => e.preventDefault();
     element2.oncontextmenu = (e) => e.preventDefault();
     element3.oncontextmenu = (e) => e.preventDefault();
 
-    viewportGrid.appendChild(element1);
-    viewportGrid.appendChild(element2);
-    viewportGrid.appendChild(element3);
-
-    content.appendChild(viewportGrid);
 
     // Add our tool, and set it's mode
 
