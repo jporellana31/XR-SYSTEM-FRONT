@@ -43,6 +43,8 @@ cornerstoneWADOImageLoader.webWorkerManager.initialize(config);
 cornerstone1.init();
 cornerstoneTools1.init();
 
+
+
 @Component({
   selector: 'app-resonance',
   templateUrl: './resonance.component.html',
@@ -100,52 +102,7 @@ export class ResonanceComponent implements OnInit {
   onResize(event) {
     this.view = [event.target.innerWidth / 1.35, 400];
   }
-  gradient: boolean = true;
-  showXAxis = true;
-  showYAxis = true;
-  showXAxisLabel = true;
-  xAxisLabel = 'Diseases';
-  showYAxisLabel = true;
-  yAxisLabel = 'Percent';
-  //Labels de los ejes X,Y
-  showYAxisVertical = 'Diseases';
-  showXAxisHorizontal = 'Percent';
-  //Nuemros al final de barras
-  showDataLabel = true;
-  //Desactiva los Poops de barras
-  tooltipDisabled = false;
-  //Recortar labels eje Y
-  trimYAxisTicks = false;
-  //(No funcional)
-  activeEntries = [{ name: 'Edema', label: 'Edema', value: 50 }];
 
-  backgroundColor: any[] = [];
-  //Custom Color
-  myColor() {
-    this.diseases = [...this.diseasesService.diseasesData];
-    console.log('diseases', this.diseases);
-
-    const rojo = 'rgb(255, 0, 0)';
-    const verde = 'rgb(0, 255, 14)';
-    const amarillo = 'rgb(255, 242, 0)';
-
-    this.diseases.forEach((disease) => {
-      if (disease.value >= 51) {
-        this.backgroundColor.push(rojo);
-      } else if (disease.value >= 21 && disease.value <= 50) {
-        this.backgroundColor.push(amarillo);
-      } else {
-        this.backgroundColor.push(verde);
-      }
-    });
-  }
-  // Apply Color
-  colorScheme: Color = {
-    name: 'mycolor',
-    selectable: true,
-    group: ScaleType.Ordinal,
-    domain: this.backgroundColor,
-  };
 
   // Obtener datos
   get single() {
@@ -158,70 +115,9 @@ export class ResonanceComponent implements OnInit {
   }
 
   // Datos seleccionados
-  showDiseases = '';
-  photo: string = '';
-  diseasesSelect: string = '';
-  onSelect(data: any): void {
-    console.log('Item clicked: ', JSON.parse(JSON.stringify(data)));
-    console.log('data', data.name);
-    if (data.name === 'Infiltration' && data.value > 49) {
-      this.photo = '../../assets/imgs/radiologyDiseases.jpeg';
-      this.showDiseases = data.name;
-    } else if (data.name === 'Edema' && data.value > 49) {
-      this.photo = '../../assets/imgs/radiologyDiseases2.jpeg';
-      this.showDiseases = data.name;
-    } else if (data.name === 'Effusion' && data.value > 49) {
-      this.photo = '../../assets/imgs/radiologyDiseases3.jpg';
-      this.showDiseases = data.name;
-    } else if (data.name === 'Cardiomegaly' && data.value > 49) {
-      this.photo = '../../assets/imgs/radiologyDiseases4.jpg';
-      this.showDiseases = data.name;
-    } else {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 2000,
-        background: '#000000',
-        color: '#ccc',
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer);
-          toast.addEventListener('mouseleave', Swal.resumeTimer);
-        },
-      });
-      Toast.fire({
-        icon: 'error',
-        title: 'Menor del 50%',
-      });
-    }
-  }
 
-  onlyDiseases: any[] = [];
-  diaseasesOnly() {
-    this.diseases.forEach((disease) => {
-      if (disease.value >= 51) {
-        this.onlyDiseases.push(disease);
-      }
-    });
-  }
 
-  expandCardRadiology(urlPhoto: string, nameDisease: string, percent: number) {
-    Swal.fire({
-      //html
-      html: `<hr style="color: white;">
-         <h1 class="text-center" style="color: white; line-height:0.1;">${nameDisease}</h1>
-         <p class="text-start"  style="color: rgb(59, 86, 134); font-size: 15px; line-height:0.1;">Percent: ${percent}%</p>
-         `,
-      imageUrl: `${urlPhoto}`,
-      backdrop: 'rgba(0, 0, 0, 0.7)',
-      imageHeight: 600,
-      imageWidth: 600,
-      showConfirmButton: false,
-      imageAlt: 'Radiology',
-      background: '#000000',
-    });
-  }
+
 
   CtrlActive: boolean;
   desactiveAltKey() {
@@ -394,6 +290,7 @@ export class ResonanceComponent implements OnInit {
     }
   }
 
+
   //Herramientas por defecto activas
   Tools() {
     // Style de tools
@@ -563,67 +460,9 @@ export class ResonanceComponent implements OnInit {
         viewportReferenceLineSlabThicknessControlsOn.indexOf(viewportId);
       return index !== -1;
     }
-    const blendModeOptions = {
-      MIP: 'Maximum Intensity Projection',
-      MINIP: 'Minimum Intensity Projection',
-      AIP: 'Average Intensity Projection',
-    };
+
     let externalViewport = null;
 
-    addDropdownToToolbar({
-      options: {
-        values: [
-          'Maximum Intensity Projection',
-          'Minimum Intensity Projection',
-          'Average Intensity Projection',
-        ],
-        defaultValue: 'Maximum Intensity Projection',
-      },
-      onSelectedValueChange: (selectedValue) => {
-        let blendModeToUse;
-        switch (selectedValue) {
-          case blendModeOptions.MIP:
-            blendModeToUse =
-              cornerstone1.Enums.BlendModes.MAXIMUM_INTENSITY_BLEND;
-            break;
-          case blendModeOptions.MINIP:
-            blendModeToUse =
-              cornerstone1.Enums.BlendModes.MINIMUM_INTENSITY_BLEND;
-            break;
-          case blendModeOptions.AIP:
-            blendModeToUse =
-              cornerstone1.Enums.BlendModes.AVERAGE_INTENSITY_BLEND;
-            break;
-          default:
-            throw new Error('undefined orientation option');
-        }
-
-        const toolGroup = ToolGroupManager.getToolGroup(toolGroupId);
-
-        const crosshairsInstance = toolGroup.getToolInstance(
-          CrosshairsTool.toolName
-        );
-        const oldConfiguration = crosshairsInstance.configuration;
-
-        crosshairsInstance.configuration = {
-          ...oldConfiguration,
-          slabThicknessBlendMode: blendModeToUse,
-        };
-
-        // Update the blendMode for actors to instantly reflect the change
-        toolGroup.viewportsInfo.forEach(({ viewportId, renderingEngineId }) => {
-          const renderingEngine =
-            cornerstone1.getRenderingEngine(renderingEngineId);
-          const viewport = renderingEngine.getViewport(
-            viewportId
-          ) as cornerstone1.Types.IVolumeViewport;
-
-          viewport.setBlendMode(blendModeToUse);
-          viewport.render();
-          externalViewport = viewport;
-        });
-      },
-    });
 
     // Init Cornerstone and related libraries
     await initDemo();
@@ -952,18 +791,24 @@ export class ResonanceComponent implements OnInit {
   isFlipV: boolean = false;
   // imagen se voltea verticalmente
   flipVXray() {
-    var element = document.getElementById('element');
+    // Define un array con los IDs de tus elementos
+    const elementsIds = ['element1', 'element2', 'element3'];
+
     setTimeout(() => {
-      var viewport = {
-        vflip: this.isFlipV, // si la imagen se voltea verticalmente
-        translation: {
-          x: 0,
-          y: 0,
-        },
-      };
-      cornerstone.setViewport(element, viewport);
-      cornerstone.updateImage(element);
-    }, 100);
+      elementsIds.forEach((elementId) => {
+        var element = document.getElementById(elementId);
+        if (element) {
+          // Verifica si el elemento existe
+          var viewport = cornerstone.getViewport(element); // Obtiene el viewport actual del elemento
+          viewport.vflip = this.isFlipV; // Configura el flip vertical según isFlipV
+
+          // Puedes ajustar más propiedades del viewport aquí si es necesario
+
+          cornerstone.setViewport(element, viewport);
+          cornerstone.updateImage(element);
+        }
+      });
+    }, 0); // El tiempo de espera se establece en 0ms
   }
 
   infoToolModal(tipo: string) {

@@ -1,40 +1,72 @@
-
-
 <!-- Modal -->
-<div class="modal fade" #envioModalRef id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  #envioModalRef
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
-        <h2 class="label">Nombre</h2>
-        <input type="text" [(ngModel)]="personName" class="textbox">
-        <h2 class="label">Cédula</h2>
-        <input type="text" [(ngModel)]="cedula" class="textbox">
+        <h2 class="label">Name</h2>
+        <input type="text" [(ngModel)]="personName" class="textbox" />
+        <h2 class="label">Identifier</h2>
+        <input type="text" [(ngModel)]="cedula" class="textbox" />
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="enviarDatosFtp()">Enviar Datos</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="enviarDatosFtp()"
+        >
+          SEND
+        </button>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Modal de Confirmación de Envío Exitoso -->
-<div class="modal fade" #confirmacionModalRef id="confirmacionModal" tabindex="-1" aria-labelledby="confirmacionModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  #confirmacionModalRef
+  id="confirmacionModal"
+  tabindex="-1"
+  aria-labelledby="confirmacionModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="confirmacionModalLabel">Envío Exitoso</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="confirmacionModalLabel">Sucesfully</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
-      <div class="modal-body">
-        Los datos se han enviado correctamente.
-      </div>
+      <div class="modal-body">The data has been sent successfully.</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          Accept
+        </button>
       </div>
     </div>
   </div>

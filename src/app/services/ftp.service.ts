@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FtpService {
-  private baseUrl = 'http://localhost:8080/api/upload';
+  private baseUrl = 'http://localhost:8080/api/upload/ftp';
 
   constructor(private http: HttpClient) {}
 
