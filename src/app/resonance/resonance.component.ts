@@ -42,8 +42,24 @@ cornerstoneWADOImageLoader.webWorkerManager.initialize(config);
 // detects gpu and decides whether to use gpu rendering or cpu fallback
 cornerstone1.init();
 cornerstoneTools1.init();
+const {
+      ToolGroupManager,
+      Enums: csToolsEnums,
+      CrosshairsTool,
+      StackScrollMouseWheelTool,
+      ZoomTool,
+    } = cornerstoneTools1;
 
+    const volumeName = 'CT_VOLUME_ID'; // Id of the volume less loader prefix
+    const volumeLoaderScheme = 'cornerstoneStreamingImageVolume'; // Loader id which defines which volume loader to use
+    const volumeId = `${volumeLoaderScheme}:${volumeName}`; // VolumeId with loader id + volume id
+    const toolGroupId = 'CROSSHAIRS_ID';
 
+    const viewportId1 = 'CT_AXIAL';
+    const viewportId2 = 'CT_SAGITTAL';
+    const viewportId3 = 'CT_CORONAL';
+
+    const renderingEngineId = 'MPR_ID';
 
 @Component({
   selector: 'app-resonance',
@@ -119,7 +135,7 @@ export class ResonanceComponent implements OnInit {
 
 
 
-  CtrlActive: boolean;
+  CtrlActive: boolean = false;
   desactiveAltKey() {
     this.CtrlActive = false;
 
@@ -128,6 +144,7 @@ export class ResonanceComponent implements OnInit {
     cornerstoneTools.addTool(ZoomMouseWheelTool);
     cornerstoneTools.setToolActive('ZoomMouseWheel', {});
   }
+
 
   //Borra las herramientas selecionadas (Tool Management)
   opciones = [
@@ -376,12 +393,7 @@ export class ResonanceComponent implements OnInit {
 
     cornerstone1.init();
     cornerstoneTools1.init();
-    const {
-      ToolGroupManager,
-      Enums: csToolsEnums,
-      CrosshairsTool,
-      StackScrollMouseWheelTool,
-    } = cornerstoneTools1;
+
 
     const { MouseBindings } = csToolsEnums;
     const { ViewportType } = cornerstone1.Enums;
@@ -391,10 +403,6 @@ export class ResonanceComponent implements OnInit {
     //FIN SERVICIO PARA ENVIAR LAS IMAGENES DICOM HACIA EL SERVIDOR FILEZILLA
 
     // Define a unique id for the volume
-    const volumeName = 'CT_VOLUME_ID'; // Id of the volume less loader prefix
-    const volumeLoaderScheme = 'cornerstoneStreamingImageVolume'; // Loader id which defines which volume loader to use
-    const volumeId = `${volumeLoaderScheme}:${volumeName}`; // VolumeId with loader id + volume id
-    const toolGroupId = 'MY_TOOLGROUP_ID';
 
     const element1 = document.getElementById('element1') as HTMLDivElement;
     const element2 = document.getElementById('element2') as HTMLDivElement;
@@ -413,9 +421,6 @@ export class ResonanceComponent implements OnInit {
 
     // Add our tool, and set it's mode
 
-    const viewportId1 = 'CT_AXIAL';
-    const viewportId2 = 'CT_SAGITTAL';
-    const viewportId3 = 'CT_CORONAL';
 
     const viewportColors = {
       [viewportId1]: 'rgb(200, 0, 0)',
@@ -507,7 +512,6 @@ export class ResonanceComponent implements OnInit {
     );
 
     // Instantiate a rendering engine
-    const renderingEngineId = 'myRenderingEngine';
     const renderingEngine = new cornerstone1.RenderingEngine(renderingEngineId);
 
     // Create the viewports
@@ -603,11 +607,21 @@ export class ResonanceComponent implements OnInit {
 
     if (imageIds.length > 1) {
       window.addEventListener('keydown', (event) => {
-        if (event.ctrlKey) {
-          this.CtrlActive = true;
-          console.log('Frames Habilitado');
-          cornerstoneTools.addTool(StackScrollMouseWheelTool);
-          cornerstoneTools.setToolActive('StackScrollMouseWheel', {});
+        if (event.key === 'Control') {
+          // Verifica si la tecla presionada es la tecla "Ctrl".
+          this.CtrlActive = !this.CtrlActive;
+          console.log(
+            this.CtrlActive ? 'Frames Habilitado' : 'Frames Deshabilitado'
+          );
+
+          if (this.CtrlActive) {
+            cornerstoneTools.addTool(StackScrollMouseWheelTool);
+            cornerstoneTools.setToolActive('StackScrollMouseWheel', {});
+          } else {
+            const ZoomMouseWheelTool = cornerstoneTools.ZoomMouseWheelTool; // zoom
+            cornerstoneTools.addTool(ZoomMouseWheelTool);
+            cornerstoneTools.setToolActive('ZoomMouseWheel', {});
+          }
         }
       });
     } else {
