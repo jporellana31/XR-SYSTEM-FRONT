@@ -23,6 +23,7 @@ import initDemo from 'src/app/utils/initDemo';
 import setCtTransferFunctionForVolumeActor from 'src/app/utils/setCtTransferFunctionForVolumeActor';
 import addDropdownToToolbar from 'src/app/utils/addDropdownToToolbar';
 
+
 cornerstoneDICOMImageLoader.external.cornerstone = cornerstone;
 cornerstoneDICOMImageLoader.external.dicomParser = dicomParser;
 
@@ -42,6 +43,8 @@ cornerstoneWADOImageLoader.webWorkerManager.initialize(config);
 // detects gpu and decides whether to use gpu rendering or cpu fallback
 cornerstone1.init();
 cornerstoneTools1.init();
+
+
 const {
       ToolGroupManager,
       Enums: csToolsEnums,
@@ -49,6 +52,8 @@ const {
       StackScrollMouseWheelTool,
       ZoomTool,
     } = cornerstoneTools1;
+
+    const { MouseBindings } = csToolsEnums;
 
     const volumeName = 'CT_VOLUME_ID'; // Id of the volume less loader prefix
     const volumeLoaderScheme = 'cornerstoneStreamingImageVolume'; // Loader id which defines which volume loader to use
@@ -60,6 +65,8 @@ const {
     const viewportId3 = 'CT_CORONAL';
 
     const renderingEngineId = 'MPR_ID';
+    // Define tool groups to add the segmentation display tool to
+    const toolGroup = ToolGroupManager.createToolGroup(toolGroupId);
 
 @Component({
   selector: 'app-resonance',
@@ -139,10 +146,16 @@ export class ResonanceComponent implements OnInit {
   desactiveAltKey() {
     this.CtrlActive = false;
 
-    const ZoomMouseWheelTool = cornerstoneTools.ZoomMouseWheelTool; // zoom
+    const {ZoomTool}=cornerstoneTools1; // zoom
 
-    cornerstoneTools.addTool(ZoomMouseWheelTool);
-    cornerstoneTools.setToolActive('ZoomMouseWheel', {});
+    cornerstoneTools1.addTool(ZoomTool);
+    toolGroup.addTool(ZoomTool.toolName)
+    toolGroup.setToolActive(ZoomTool.toolName, {
+      bindings: [{ mouseButton: MouseBindings.Auxiliary }],
+    });
+    toolGroup.addViewport(viewportId1,renderingEngineId);
+    toolGroup.addViewport(viewportId2,renderingEngineId);
+    toolGroup.addViewport(viewportId3,renderingEngineId);
   }
 
 
@@ -361,6 +374,8 @@ export class ResonanceComponent implements OnInit {
     });
   }
 
+
+
   //DESDE AQUI COMIENZA TODA LA PROGRAMACIÓN PARA LA VISUALIZACIÓN DE LAS IMAGENES MEDICAS Y CREACION DE LA VENTANA MULTIPLANAR
 
   // funcion de ver por stack varios dicom
@@ -566,8 +581,7 @@ export class ResonanceComponent implements OnInit {
       [viewportId1, viewportId2, viewportId3]
     );
 
-    // Define tool groups to add the segmentation display tool to
-    const toolGroup = ToolGroupManager.createToolGroup(toolGroupId);
+
 
     // For the crosshairs to operate, the viewports must currently be
     // added ahead of setting the tool active. This will be improved in the future.
