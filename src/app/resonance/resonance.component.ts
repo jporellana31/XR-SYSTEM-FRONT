@@ -22,7 +22,8 @@ import * as cornerstoneDICOMImageLoader from '@cornerstonejs/dicom-image-loader'
 import initDemo from 'src/app/utils/initDemo';
 import setCtTransferFunctionForVolumeActor from 'src/app/utils/setCtTransferFunctionForVolumeActor';
 import addDropdownToToolbar from 'src/app/utils/addDropdownToToolbar';
-
+import ToolGroup from '@cornerstonejs/tools/dist/types/store/ToolGroupManager/ToolGroup';
+import { stack } from 'd3';
 
 cornerstoneDICOMImageLoader.external.cornerstone = cornerstone;
 cornerstoneDICOMImageLoader.external.dicomParser = dicomParser;
@@ -44,29 +45,28 @@ cornerstoneWADOImageLoader.webWorkerManager.initialize(config);
 cornerstone1.init();
 cornerstoneTools1.init();
 
-
 const {
-      ToolGroupManager,
-      Enums: csToolsEnums,
-      CrosshairsTool,
-      StackScrollMouseWheelTool,
-      ZoomTool,
-    } = cornerstoneTools1;
+  ToolGroupManager,
+  Enums: csToolsEnums,
+  CrosshairsTool,
+  StackScrollMouseWheelTool,
+  ZoomTool,
+} = cornerstoneTools1;
 
-    const { MouseBindings } = csToolsEnums;
+const { MouseBindings } = csToolsEnums;
 
-    const volumeName = 'CT_VOLUME_ID'; // Id of the volume less loader prefix
-    const volumeLoaderScheme = 'cornerstoneStreamingImageVolume'; // Loader id which defines which volume loader to use
-    const volumeId = `${volumeLoaderScheme}:${volumeName}`; // VolumeId with loader id + volume id
-    const toolGroupId = 'CROSSHAIRS_ID';
+const volumeName = 'CT_VOLUME_ID'; // Id of the volume less loader prefix
+const volumeLoaderScheme = 'cornerstoneStreamingImageVolume'; // Loader id which defines which volume loader to use
+const volumeId = `${volumeLoaderScheme}:${volumeName}`; // VolumeId with loader id + volume id
+const toolGroupId = 'CROSSHAIRS_ID';
 
-    const viewportId1 = 'CT_AXIAL';
-    const viewportId2 = 'CT_SAGITTAL';
-    const viewportId3 = 'CT_CORONAL';
+const viewportId1 = 'CT_AXIAL';
+const viewportId2 = 'CT_SAGITTAL';
+const viewportId3 = 'CT_CORONAL';
 
-    const renderingEngineId = 'MPR_ID';
-    // Define tool groups to add the segmentation display tool to
-    const toolGroup = ToolGroupManager.createToolGroup(toolGroupId);
+const renderingEngineId = 'MPR_ID';
+// Define tool groups to add the segmentation display tool to
+const toolGroup = ToolGroupManager.createToolGroup(toolGroupId);
 
 @Component({
   selector: 'app-resonance',
@@ -126,7 +126,6 @@ export class ResonanceComponent implements OnInit {
     this.view = [event.target.innerWidth / 1.35, 400];
   }
 
-
   // Obtener datos
   get single() {
     return this.diseasesService.diseasesData;
@@ -139,25 +138,12 @@ export class ResonanceComponent implements OnInit {
 
   // Datos seleccionados
 
-
-
-
   CtrlActive: boolean = false;
   desactiveAltKey() {
     this.CtrlActive = false;
-
-    const {ZoomTool}=cornerstoneTools1; // zoom
-
-    cornerstoneTools1.addTool(ZoomTool);
-    toolGroup.addTool(ZoomTool.toolName)
-    toolGroup.setToolActive(ZoomTool.toolName, {
-      bindings: [{ mouseButton: MouseBindings.Auxiliary }],
-    });
-    toolGroup.addViewport(viewportId1,renderingEngineId);
-    toolGroup.addViewport(viewportId2,renderingEngineId);
-    toolGroup.addViewport(viewportId3,renderingEngineId);
+    toolGroup.setToolDisabled(CrosshairsTool.toolName);
+    toolGroup.setToolDisabled(StackScrollMouseWheelTool.toolName);
   }
-
 
   //Borra las herramientas selecionadas (Tool Management)
   opciones = [
@@ -320,7 +306,6 @@ export class ResonanceComponent implements OnInit {
     }
   }
 
-
   //Herramientas por defecto activas
   Tools() {
     // Style de tools
@@ -374,8 +359,6 @@ export class ResonanceComponent implements OnInit {
     });
   }
 
-
-
   //DESDE AQUI COMIENZA TODA LA PROGRAMACIÓN PARA LA VISUALIZACIÓN DE LAS IMAGENES MEDICAS Y CREACION DE LA VENTANA MULTIPLANAR
 
   // funcion de ver por stack varios dicom
@@ -409,7 +392,6 @@ export class ResonanceComponent implements OnInit {
     cornerstone1.init();
     cornerstoneTools1.init();
 
-
     const { MouseBindings } = csToolsEnums;
     const { ViewportType } = cornerstone1.Enums;
 
@@ -435,7 +417,6 @@ export class ResonanceComponent implements OnInit {
     element3.oncontextmenu = (e) => e.preventDefault();
 
     // Add our tool, and set it's mode
-
 
     const viewportColors = {
       [viewportId1]: 'rgb(200, 0, 0)',
@@ -483,14 +464,11 @@ export class ResonanceComponent implements OnInit {
 
     let externalViewport = null;
 
-
     // Init Cornerstone and related libraries
     await initDemo();
-
     // Add tools to Cornerstone3D
     cornerstoneTools1.addTool(StackScrollMouseWheelTool);
     cornerstoneTools1.addTool(CrosshairsTool);
-
     // Get Cornerstone imageIds for the source data and fetch metadata into RAM
     const imageIds = [];
 
@@ -528,6 +506,31 @@ export class ResonanceComponent implements OnInit {
 
     // Instantiate a rendering engine
     const renderingEngine = new cornerstone1.RenderingEngine(renderingEngineId);
+    // For the crosshairs to operate, the viewports must currently be
+    // added ahead of setting the tool active. This will be improved in the future.
+    toolGroup.addViewport(viewportId1, renderingEngineId);
+    toolGroup.addViewport(viewportId2, renderingEngineId);
+    toolGroup.addViewport(viewportId3, renderingEngineId);
+
+    // Manipulation Tools
+    toolGroup.addTool(StackScrollMouseWheelTool.toolName);
+    // Add Crosshairs tool and configure it to link the three viewports
+    // These viewports could use different tool groups. See the PET-CT example
+    // for a more complicated used case.
+
+    const isMobile = window.matchMedia('(any-pointer:coarse)').matches;
+
+    toolGroup.addTool(CrosshairsTool.toolName, {
+      getReferenceLineColor,
+      getReferenceLineControllable,
+      getReferenceLineDraggableRotatable,
+      getReferenceLineSlabThicknessControlsOn,
+      mobile: {
+        enabled: isMobile,
+        opacity: 0.8,
+        handleRadius: 9,
+      },
+    });
 
     // Create the viewports
     const viewportInputArray = [
@@ -581,41 +584,6 @@ export class ResonanceComponent implements OnInit {
       [viewportId1, viewportId2, viewportId3]
     );
 
-
-
-    // For the crosshairs to operate, the viewports must currently be
-    // added ahead of setting the tool active. This will be improved in the future.
-    toolGroup.addViewport(viewportId1, renderingEngineId);
-    toolGroup.addViewport(viewportId2, renderingEngineId);
-    toolGroup.addViewport(viewportId3, renderingEngineId);
-
-    // Manipulation Tools
-    toolGroup.addTool(StackScrollMouseWheelTool.toolName);
-    // Add Crosshairs tool and configure it to link the three viewports
-    // These viewports could use different tool groups. See the PET-CT example
-    // for a more complicated used case.
-
-    const isMobile = window.matchMedia('(any-pointer:coarse)').matches;
-
-    toolGroup.addTool(CrosshairsTool.toolName, {
-      getReferenceLineColor,
-      getReferenceLineControllable,
-      getReferenceLineDraggableRotatable,
-      getReferenceLineSlabThicknessControlsOn,
-      mobile: {
-        enabled: isMobile,
-        opacity: 0.8,
-        handleRadius: 9,
-      },
-    });
-
-    toolGroup.setToolActive(CrosshairsTool.toolName, {
-      bindings: [{ mouseButton: MouseBindings.Primary }],
-    });
-    // As the Stack Scroll mouse wheel is a tool using the `mouseWheelCallback`
-    // hook instead of mouse buttons, it does not need to assign any mouse button.
-    toolGroup.setToolActive(StackScrollMouseWheelTool.toolName);
-
     // Render the image
     renderingEngine.renderViewports([viewportId1, viewportId2, viewportId3]);
 
@@ -629,12 +597,14 @@ export class ResonanceComponent implements OnInit {
           );
 
           if (this.CtrlActive) {
-            cornerstoneTools.addTool(StackScrollMouseWheelTool);
-            cornerstoneTools.setToolActive('StackScrollMouseWheel', {});
+            toolGroup.setToolActive(CrosshairsTool.toolName, {
+              bindings: [{ mouseButton: MouseBindings.Primary }],
+            });
+            // As the Stack Scroll mouse wheel is a tool using the `mouseWheelCallback`
+            // hook instead of mouse buttons, it does not need to assign any mouse button.
+            toolGroup.setToolActive(StackScrollMouseWheelTool.toolName);
           } else {
-            const ZoomMouseWheelTool = cornerstoneTools.ZoomMouseWheelTool; // zoom
-            cornerstoneTools.addTool(ZoomMouseWheelTool);
-            cornerstoneTools.setToolActive('ZoomMouseWheel', {});
+            this.desactiveAltKey();
           }
         }
       });
