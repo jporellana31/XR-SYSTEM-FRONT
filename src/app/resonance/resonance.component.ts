@@ -21,9 +21,6 @@ import * as cornerstoneTools1 from '@cornerstonejs/tools';
 import * as cornerstoneDICOMImageLoader from '@cornerstonejs/dicom-image-loader';
 import initDemo from 'src/app/utils/initDemo';
 import setCtTransferFunctionForVolumeActor from 'src/app/utils/setCtTransferFunctionForVolumeActor';
-import addDropdownToToolbar from 'src/app/utils/addDropdownToToolbar';
-import ToolGroup from '@cornerstonejs/tools/dist/types/store/ToolGroupManager/ToolGroup';
-import { stack } from 'd3';
 
 cornerstoneDICOMImageLoader.external.cornerstone = cornerstone;
 cornerstoneDICOMImageLoader.external.dicomParser = dicomParser;
@@ -181,90 +178,323 @@ export class ResonanceComponent implements OnInit {
   }
 
   activateTools(toolActive: string) {
-    const LengthTool = cornerstoneTools.LengthTool;
-    const EllipticalRoiTool = cornerstoneTools.EllipticalRoiTool;
-    const ArrowAnnotateTool = cornerstoneTools.ArrowAnnotateTool;
-    const RotateTool = cornerstoneTools.RotateTool;
-    const WwwcTool = cornerstoneTools.WwwcTool; // brillo
-    const AngleTool = cornerstoneTools.AngleTool;
-    const BidirectionalTool = cornerstoneTools.BidirectionalTool; // crea una cruz tipo lenghtTool
-    const FreehandRoiTool = cornerstoneTools.FreehandRoiTool; // crea lineas a partir de otras (no para hatsa llegar al punto de inico)
-    const RectangleRoiTool = cornerstoneTools.RectangleRoiTool; // rectangulo calcula el area
-    const EraserTool = cornerstoneTools.EraserTool; // borrador
+    const { LengthTool } = cornerstoneTools1; //Linea Recta
+    const { EllipticalROITool } = cornerstoneTools1; //Elipse
+    const { ArrowAnnotateTool } = cornerstoneTools1; //flecha para ingresar anotación
+    const { TrackballRotateTool } = cornerstoneTools1; //Rota la imagen
+    const { WindowLevelTool } = cornerstoneTools1; // brillo
+    const { AngleTool } = cornerstoneTools1;
+    const { BidirectionalTool } = cornerstoneTools1; // crea una cruz tipo lenghtTool
+    const { PlanarFreehandROITool } = cornerstoneTools1; // crea lineas a partir de otras (no para hatsa llegar al punto de inico)
+    const { RectangleROITool } = cornerstoneTools1; // rectangulo calcula el area
+    const { EraserTool } = cornerstoneTools1; // borrador
     const StackScrollTool = cornerstoneTools.StackScrollTool; // Add our tool, and set it's mode
-    const CobbAngleTool = cornerstoneTools.CobbAngleTool; // amgules cobb
-    const TextMarkerTool = cornerstoneTools.TextMarkerTool; // mark perzonalites
-    const ProbeTool = cornerstoneTools.ProbeTool; // marks
+    const { CobbAngleTool } = cornerstoneTools1; // amgules cobb
+    const { KeyImageTool } = cornerstoneTools1; // mark perzonalites
+    const { ProbeTool } = cornerstoneTools1; // marks
     const WwwcRegionTool = cornerstoneTools.WwwcRegionTool;
+    const toolGroup = ToolGroupManager.getToolGroup(toolGroupId);
+
+    toolGroup.addViewport(viewportId1, renderingEngineId);
+    toolGroup.addViewport(viewportId2, renderingEngineId);
+    toolGroup.addViewport(viewportId3, renderingEngineId);
+
+    try {
+      cornerstoneTools1.addTool(LengthTool);
+      cornerstoneTools1.addTool(EllipticalROITool);
+      cornerstoneTools1.addTool(ArrowAnnotateTool);
+      cornerstoneTools1.addTool(TrackballRotateTool);
+      cornerstoneTools1.addTool(WindowLevelTool);
+      cornerstoneTools1.addTool(AngleTool);
+      cornerstoneTools1.addTool(BidirectionalTool);
+      cornerstoneTools1.addTool(PlanarFreehandROITool);
+      cornerstoneTools1.addTool(RectangleROITool);
+      cornerstoneTools1.addTool(EraserTool);
+      cornerstoneTools1.addTool(CobbAngleTool);
+      cornerstoneTools1.addTool(KeyImageTool);
+      cornerstoneTools1.addTool(ProbeTool);
+    } catch (error) {
+      console.error("Error adding tools: ", error);
+      // Handle the error as needed, could be logging or user notification
+    }
+
+    toolGroup.addTool(LengthTool.toolName);
+    toolGroup.addTool(EllipticalROITool.toolName);
+    toolGroup.addTool(ArrowAnnotateTool.toolName);
+    toolGroup.addTool(TrackballRotateTool.toolName);
+    toolGroup.addTool(WindowLevelTool.toolName);
+    toolGroup.addTool(AngleTool.toolName);
+    toolGroup.addTool(BidirectionalTool.toolName);
+    toolGroup.addTool(PlanarFreehandROITool.toolName);
+    toolGroup.addTool(RectangleROITool.toolName);
+    toolGroup.addTool(EraserTool.toolName);
+    toolGroup.addTool(CobbAngleTool.toolName);
+    toolGroup.addTool(KeyImageTool.toolName);
+    toolGroup.addTool(ProbeTool.toolName);
 
     try {
       switch (toolActive) {
         case 'Length':
-          cornerstoneTools.addTool(LengthTool);
-          cornerstoneTools.setToolActive('Length', { mouseButtonMask: 1 });
+          toolGroup.setToolActive(LengthTool.toolName, {
+            bindings: [
+              {
+                mouseButton: csToolsEnums.MouseBindings.Primary, // Left Click
+              },
+            ],
+          });
+          toolGroup.setToolPassive(EllipticalROITool.toolName);
+          toolGroup.setToolPassive(ArrowAnnotateTool.toolName);
+          toolGroup.setToolPassive(TrackballRotateTool.toolName);
+          toolGroup.setToolPassive(WindowLevelTool.toolName);
+          toolGroup.setToolPassive(AngleTool.toolName);
+          toolGroup.setToolPassive(BidirectionalTool.toolName);
+          toolGroup.setToolPassive(PlanarFreehandROITool.toolName);
+          toolGroup.setToolPassive(RectangleROITool.toolName);
+          toolGroup.setToolPassive(EraserTool.toolName);
+          toolGroup.setToolPassive(CobbAngleTool.toolName);
+          toolGroup.setToolPassive(KeyImageTool.toolName);
+          toolGroup.setToolPassive(ProbeTool.toolName);
           break;
 
         case 'EllipticalRoi':
-          cornerstoneTools.addTool(EllipticalRoiTool);
-          cornerstoneTools.setToolActive('EllipticalRoi', {
-            mouseButtonMask: 1,
+          // Configurando EllipticalROITool como activa con binding para el click izquierdo
+          toolGroup.setToolActive(EllipticalROITool.toolName, {
+            bindings: [
+              { mouseButton: csToolsEnums.MouseBindings.Primary }, // Left Click
+            ],
           });
+
+          // Configurando todas las otras herramientas como pasivas
+          toolGroup.setToolPassive(LengthTool.toolName);
+          toolGroup.setToolPassive(ArrowAnnotateTool.toolName);
+          toolGroup.setToolPassive(TrackballRotateTool.toolName);
+          toolGroup.setToolPassive(WindowLevelTool.toolName);
+          toolGroup.setToolPassive(AngleTool.toolName);
+          toolGroup.setToolPassive(BidirectionalTool.toolName);
+          toolGroup.setToolPassive(PlanarFreehandROITool.toolName);
+          toolGroup.setToolPassive(RectangleROITool.toolName);
+          toolGroup.setToolPassive(EraserTool.toolName);
+          toolGroup.setToolPassive(CobbAngleTool.toolName);
+          toolGroup.setToolPassive(KeyImageTool.toolName);
+          toolGroup.setToolPassive(ProbeTool.toolName);
           break;
 
         case 'ArrowAnnotate':
-          cornerstoneTools.addTool(ArrowAnnotateTool);
-          cornerstoneTools.setToolActive('ArrowAnnotate', {
-            mouseButtonMask: 1,
+          // Configurando ArrowAnnotateTool como activa con binding para el click izquierdo
+          toolGroup.setToolActive(ArrowAnnotateTool.toolName, {
+            bindings: [
+              { mouseButton: csToolsEnums.MouseBindings.Primary }, // Left Click
+            ],
           });
+
+          // Configurando todas las otras herramientas como pasivas
+          toolGroup.setToolPassive(LengthTool.toolName);
+          toolGroup.setToolPassive(EllipticalROITool.toolName);
+          toolGroup.setToolPassive(TrackballRotateTool.toolName);
+          toolGroup.setToolPassive(WindowLevelTool.toolName);
+          toolGroup.setToolPassive(AngleTool.toolName);
+          toolGroup.setToolPassive(BidirectionalTool.toolName);
+          toolGroup.setToolPassive(PlanarFreehandROITool.toolName);
+          toolGroup.setToolPassive(RectangleROITool.toolName);
+          toolGroup.setToolPassive(EraserTool.toolName);
+          toolGroup.setToolPassive(CobbAngleTool.toolName);
+          toolGroup.setToolPassive(KeyImageTool.toolName);
+          toolGroup.setToolPassive(ProbeTool.toolName);
+
           break;
 
         case 'FreehandRoi':
-          cornerstoneTools.addTool(FreehandRoiTool);
-          cornerstoneTools.setToolActive('FreehandRoi', { mouseButtonMask: 1 });
+          // Configurando PlanarFreehandROITool como activa con binding para el click izquierdo
+          toolGroup.setToolActive(PlanarFreehandROITool.toolName, {
+            bindings: [
+              { mouseButton: csToolsEnums.MouseBindings.Primary }, // Left Click
+            ],
+          });
+
+          // Configurando todas las otras herramientas como pasivas
+          toolGroup.setToolPassive(LengthTool.toolName);
+          toolGroup.setToolPassive(EllipticalROITool.toolName);
+          toolGroup.setToolPassive(ArrowAnnotateTool.toolName);
+          toolGroup.setToolPassive(TrackballRotateTool.toolName);
+          toolGroup.setToolPassive(WindowLevelTool.toolName);
+          toolGroup.setToolPassive(AngleTool.toolName);
+          toolGroup.setToolPassive(BidirectionalTool.toolName);
+          toolGroup.setToolPassive(RectangleROITool.toolName);
+          toolGroup.setToolPassive(EraserTool.toolName);
+          toolGroup.setToolPassive(CobbAngleTool.toolName);
+          toolGroup.setToolPassive(KeyImageTool.toolName);
+          toolGroup.setToolPassive(ProbeTool.toolName);
+
           break;
 
         case 'Rotate':
-          cornerstoneTools.addTool(RotateTool);
-          cornerstoneTools.setToolActive('Rotate', { mouseButtonMask: 1 });
-          break;
+          // Configurando TrackballRotateTool como activa con binding para el click izquierdo
+          toolGroup.setToolActive(TrackballRotateTool.toolName, {
+            bindings: [
+              { mouseButton: csToolsEnums.MouseBindings.Primary }, // Left Click
+            ],
+          });
 
+          // Configurando todas las otras herramientas como pasivas
+          toolGroup.setToolPassive(LengthTool.toolName);
+          toolGroup.setToolPassive(EllipticalROITool.toolName);
+          toolGroup.setToolPassive(ArrowAnnotateTool.toolName);
+          toolGroup.setToolPassive(WindowLevelTool.toolName);
+          toolGroup.setToolPassive(AngleTool.toolName);
+          toolGroup.setToolPassive(BidirectionalTool.toolName);
+          toolGroup.setToolPassive(PlanarFreehandROITool.toolName);
+          toolGroup.setToolPassive(RectangleROITool.toolName);
+          toolGroup.setToolPassive(EraserTool.toolName);
+          toolGroup.setToolPassive(CobbAngleTool.toolName);
+          toolGroup.setToolPassive(KeyImageTool.toolName);
+          toolGroup.setToolPassive(ProbeTool.toolName);
+          break;
         case 'Wwwc':
-          cornerstoneTools.addTool(WwwcTool);
-          cornerstoneTools.setToolActive('Wwwc', { mouseButtonMask: 1 });
+          // Configurando WindowLevelTool como activa con binding para el click izquierdo
+toolGroup.setToolActive(WindowLevelTool.toolName, {
+  bindings: [
+      { mouseButton: csToolsEnums.MouseBindings.Primary }, // Left Click
+  ],
+});
+
+// Configurando todas las otras herramientas como pasivas
+toolGroup.setToolPassive(LengthTool.toolName);
+toolGroup.setToolPassive(EllipticalROITool.toolName);
+toolGroup.setToolPassive(ArrowAnnotateTool.toolName);
+toolGroup.setToolPassive(TrackballRotateTool.toolName);
+toolGroup.setToolPassive(AngleTool.toolName);
+toolGroup.setToolPassive(BidirectionalTool.toolName);
+toolGroup.setToolPassive(PlanarFreehandROITool.toolName);
+toolGroup.setToolPassive(RectangleROITool.toolName);
+toolGroup.setToolPassive(EraserTool.toolName);
+toolGroup.setToolPassive(CobbAngleTool.toolName);
+toolGroup.setToolPassive(KeyImageTool.toolName);
+toolGroup.setToolPassive(ProbeTool.toolName);
+
           break;
 
         case 'Eraser':
-          cornerstoneTools.addTool(EraserTool);
-          cornerstoneTools.setToolActive('Eraser', { mouseButtonMask: 1 });
+          // Configurando EraserTool como activa con binding para el click izquierdo
+toolGroup.setToolActive(EraserTool.toolName, {
+  bindings: [
+      { mouseButton: csToolsEnums.MouseBindings.Primary }, // Left Click
+  ],
+});
+
+// Configurando todas las otras herramientas como pasivas
+toolGroup.setToolPassive(LengthTool.toolName);
+toolGroup.setToolPassive(EllipticalROITool.toolName);
+toolGroup.setToolPassive(ArrowAnnotateTool.toolName);
+toolGroup.setToolPassive(TrackballRotateTool.toolName);
+toolGroup.setToolPassive(WindowLevelTool.toolName);
+toolGroup.setToolPassive(AngleTool.toolName);
+toolGroup.setToolPassive(BidirectionalTool.toolName);
+toolGroup.setToolPassive(PlanarFreehandROITool.toolName);
+toolGroup.setToolPassive(RectangleROITool.toolName);
+toolGroup.setToolPassive(CobbAngleTool.toolName);
+toolGroup.setToolPassive(KeyImageTool.toolName);
+toolGroup.setToolPassive(ProbeTool.toolName);
+
           break;
 
         case 'Angle':
-          cornerstoneTools.addTool(AngleTool);
-          cornerstoneTools.setToolActive('Angle', { mouseButtonMask: 1 });
+          // Configurando AngleTool como activa con binding para el click izquierdo
+toolGroup.setToolActive(AngleTool.toolName, {
+  bindings: [
+      { mouseButton: csToolsEnums.MouseBindings.Primary }, // Left Click
+  ],
+});
+
+// Configurando todas las otras herramientas como pasivas
+toolGroup.setToolPassive(LengthTool.toolName);
+toolGroup.setToolPassive(EllipticalROITool.toolName);
+toolGroup.setToolPassive(ArrowAnnotateTool.toolName);
+toolGroup.setToolPassive(TrackballRotateTool.toolName);
+toolGroup.setToolPassive(WindowLevelTool.toolName);
+toolGroup.setToolPassive(BidirectionalTool.toolName);
+toolGroup.setToolPassive(PlanarFreehandROITool.toolName);
+toolGroup.setToolPassive(RectangleROITool.toolName);
+toolGroup.setToolPassive(EraserTool.toolName);
+toolGroup.setToolPassive(CobbAngleTool.toolName);
+toolGroup.setToolPassive(KeyImageTool.toolName);
+toolGroup.setToolPassive(ProbeTool.toolName);
+
           break;
 
         case 'Bidirectional':
-          cornerstoneTools.addTool(BidirectionalTool);
-          cornerstoneTools.setToolActive('Bidirectional', {
-            mouseButtonMask: 1,
-          });
+          // Configurando BidirectionalTool como activa con binding para el click izquierdo
+toolGroup.setToolActive(BidirectionalTool.toolName, {
+  bindings: [
+      { mouseButton: csToolsEnums.MouseBindings.Primary }, // Left Click
+  ],
+});
+
+// Configurando todas las otras herramientas como pasivas
+toolGroup.setToolPassive(LengthTool.toolName);
+toolGroup.setToolPassive(EllipticalROITool.toolName);
+toolGroup.setToolPassive(ArrowAnnotateTool.toolName);
+toolGroup.setToolPassive(TrackballRotateTool.toolName);
+toolGroup.setToolPassive(WindowLevelTool.toolName);
+toolGroup.setToolPassive(AngleTool.toolName);
+toolGroup.setToolPassive(PlanarFreehandROITool.toolName);
+toolGroup.setToolPassive(RectangleROITool.toolName);
+toolGroup.setToolPassive(EraserTool.toolName);
+toolGroup.setToolPassive(CobbAngleTool.toolName);
+toolGroup.setToolPassive(KeyImageTool.toolName);
+toolGroup.setToolPassive(ProbeTool.toolName);
+
           break;
 
         case 'RectangleRoi':
-          cornerstoneTools.addTool(RectangleRoiTool);
-          cornerstoneTools.setToolActive('RectangleRoi', {
-            mouseButtonMask: 1,
-          });
+          // Configurando RectangleROITool como activa con binding para el click izquierdo
+toolGroup.setToolActive(RectangleROITool.toolName, {
+  bindings: [
+      { mouseButton: csToolsEnums.MouseBindings.Primary }, // Left Click
+  ],
+});
+
+// Configurando todas las otras herramientas como pasivas
+toolGroup.setToolPassive(LengthTool.toolName);
+toolGroup.setToolPassive(EllipticalROITool.toolName);
+toolGroup.setToolPassive(ArrowAnnotateTool.toolName);
+toolGroup.setToolPassive(TrackballRotateTool.toolName);
+toolGroup.setToolPassive(WindowLevelTool.toolName);
+toolGroup.setToolPassive(AngleTool.toolName);
+toolGroup.setToolPassive(BidirectionalTool.toolName);
+toolGroup.setToolPassive(PlanarFreehandROITool.toolName);
+toolGroup.setToolPassive(EraserTool.toolName);
+toolGroup.setToolPassive(CobbAngleTool.toolName);
+toolGroup.setToolPassive(KeyImageTool.toolName);
+toolGroup.setToolPassive(ProbeTool.toolName);
+
           break;
 
         case 'FreehandRoi':
-          cornerstoneTools.addTool(FreehandRoiTool);
           cornerstoneTools.setToolActive('FreehandRoi', { mouseButtonMask: 1 });
           break;
 
         case 'CobbAngle':
-          cornerstoneTools.addTool(CobbAngleTool);
-          cornerstoneTools.setToolActive('CobbAngle', { mouseButtonMask: 1 });
+        // Configurando CobbAngleTool como activa con binding para el click izquierdo
+toolGroup.setToolActive(CobbAngleTool.toolName, {
+  bindings: [
+      { mouseButton: csToolsEnums.MouseBindings.Primary }, // Left Click
+  ],
+});
+
+// Configurando todas las otras herramientas como pasivas
+toolGroup.setToolPassive(LengthTool.toolName);
+toolGroup.setToolPassive(EllipticalROITool.toolName);
+toolGroup.setToolPassive(ArrowAnnotateTool.toolName);
+toolGroup.setToolPassive(TrackballRotateTool.toolName);
+toolGroup.setToolPassive(WindowLevelTool.toolName);
+toolGroup.setToolPassive(AngleTool.toolName);
+toolGroup.setToolPassive(BidirectionalTool.toolName);
+toolGroup.setToolPassive(PlanarFreehandROITool.toolName);
+toolGroup.setToolPassive(RectangleROITool.toolName);
+toolGroup.setToolPassive(EraserTool.toolName);
+toolGroup.setToolPassive(KeyImageTool.toolName);
+toolGroup.setToolPassive(ProbeTool.toolName);
+
           break;
 
         case 'StackScroll':
@@ -273,8 +503,27 @@ export class ResonanceComponent implements OnInit {
           break;
 
         case 'Probe':
-          cornerstoneTools.addTool(ProbeTool);
-          cornerstoneTools.setToolActive('Probe', { mouseButtonMask: 1 });
+          // Configurando ProbeTool como activa con binding para el click izquierdo
+toolGroup.setToolActive(ProbeTool.toolName, {
+  bindings: [
+      { mouseButton: csToolsEnums.MouseBindings.Primary }, // Left Click
+  ],
+});
+
+// Configurando todas las otras herramientas como pasivas
+toolGroup.setToolPassive(LengthTool.toolName);
+toolGroup.setToolPassive(EllipticalROITool.toolName);
+toolGroup.setToolPassive(ArrowAnnotateTool.toolName);
+toolGroup.setToolPassive(TrackballRotateTool.toolName);
+toolGroup.setToolPassive(WindowLevelTool.toolName);
+toolGroup.setToolPassive(AngleTool.toolName);
+toolGroup.setToolPassive(BidirectionalTool.toolName);
+toolGroup.setToolPassive(PlanarFreehandROITool.toolName);
+toolGroup.setToolPassive(RectangleROITool.toolName);
+toolGroup.setToolPassive(EraserTool.toolName);
+toolGroup.setToolPassive(CobbAngleTool.toolName);
+toolGroup.setToolPassive(KeyImageTool.toolName);
+
           break;
 
         case 'WwwcRegion':
@@ -283,14 +532,27 @@ export class ResonanceComponent implements OnInit {
           break;
 
         case 'TextMarker':
-          const configuration = {
-            markers: ['F5', 'F4', 'F3', 'F2', 'F1'],
-            current: 'Double click to change text',
-            ascending: true,
-            loop: true,
-          };
-          cornerstoneTools.addTool(TextMarkerTool, { configuration });
-          cornerstoneTools.setToolActive('TextMarker', { mouseButtonMask: 1 });
+          // Configurando KeyImageTool como activa con binding para el click izquierdo
+toolGroup.setToolActive(KeyImageTool.toolName, {
+  bindings: [
+      { mouseButton: csToolsEnums.MouseBindings.Primary }, // Left Click
+  ],
+});
+
+// Configurando todas las otras herramientas como pasivas
+toolGroup.setToolPassive(LengthTool.toolName);
+toolGroup.setToolPassive(EllipticalROITool.toolName);
+toolGroup.setToolPassive(ArrowAnnotateTool.toolName);
+toolGroup.setToolPassive(TrackballRotateTool.toolName);
+toolGroup.setToolPassive(WindowLevelTool.toolName);
+toolGroup.setToolPassive(AngleTool.toolName);
+toolGroup.setToolPassive(BidirectionalTool.toolName);
+toolGroup.setToolPassive(PlanarFreehandROITool.toolName);
+toolGroup.setToolPassive(RectangleROITool.toolName);
+toolGroup.setToolPassive(EraserTool.toolName);
+toolGroup.setToolPassive(CobbAngleTool.toolName);
+toolGroup.setToolPassive(ProbeTool.toolName);
+
           break;
 
         default:
